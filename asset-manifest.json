@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/istekram/static/css/main.23e5e00a.chunk.css",
+    "main.js": "/istekram/static/js/main.d5a26fcb.chunk.js",
+    "main.js.map": "/istekram/static/js/main.d5a26fcb.chunk.js.map",
+    "runtime-main.js": "/istekram/static/js/runtime-main.0be4bf57.js",
+    "runtime-main.js.map": "/istekram/static/js/runtime-main.0be4bf57.js.map",
+    "static/js/2.e3662834.chunk.js": "/istekram/static/js/2.e3662834.chunk.js",
+    "static/js/2.e3662834.chunk.js.map": "/istekram/static/js/2.e3662834.chunk.js.map",
+    "index.html": "/istekram/index.html",
+    "static/css/main.23e5e00a.chunk.css.map": "/istekram/static/css/main.23e5e00a.chunk.css.map",
+    "static/js/2.e3662834.chunk.js.LICENSE.txt": "/istekram/static/js/2.e3662834.chunk.js.LICENSE.txt",
+    "static/media/comment.545290bf.svg": "/istekram/static/media/comment.545290bf.svg",
+    "static/media/direct-fill.41ceaebe.svg": "/istekram/static/media/direct-fill.41ceaebe.svg",
+    "static/media/direct.98fdd793.svg": "/istekram/static/media/direct.98fdd793.svg",
+    "static/media/explore-fill.d7e2485e.svg": "/istekram/static/media/explore-fill.d7e2485e.svg",
+    "static/media/explore.87861f4d.svg": "/istekram/static/media/explore.87861f4d.svg",
+    "static/media/home-fill.d0b0d084.svg": "/istekram/static/media/home-fill.d0b0d084.svg",
+    "static/media/home.e0e115d0.svg": "/istekram/static/media/home.e0e115d0.svg",
+    "static/media/igtv.9831080c.svg": "/istekram/static/media/igtv.9831080c.svg",
+    "static/media/istekram.da20bcb0.png": "/istekram/static/media/istekram.da20bcb0.png",
+    "static/media/like-fill.584e0f9f.svg": "/istekram/static/media/like-fill.584e0f9f.svg",
+    "static/media/like.3fcf83bf.svg": "/istekram/static/media/like.3fcf83bf.svg",
+    "static/media/more.a14fdc64.svg": "/istekram/static/media/more.a14fdc64.svg",
+    "static/media/post.cf12fedb.svg": "/istekram/static/media/post.cf12fedb.svg",
+    "static/media/post.eb0d0916.jpg": "/istekram/static/media/post.eb0d0916.jpg",
+    "static/media/profile.fdf51f04.svg": "/istekram/static/media/profile.fdf51f04.svg",
+    "static/media/save-border.17c78439.svg": "/istekram/static/media/save-border.17c78439.svg",
+    "static/media/save-fill.1b997887.svg": "/istekram/static/media/save-fill.1b997887.svg",
+    "static/media/save.38e49f17.svg": "/istekram/static/media/save.38e49f17.svg",
+    "static/media/search.febc8c9f.svg": "/istekram/static/media/search.febc8c9f.svg",
+    "static/media/setting.fd439d63.svg": "/istekram/static/media/setting.fd439d63.svg",
+    "static/media/tag.6c93a3c5.svg": "/istekram/static/media/tag.6c93a3c5.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0be4bf57.js",
+    "static/js/2.e3662834.chunk.js",
+    "static/css/main.23e5e00a.chunk.css",
+    "static/js/main.d5a26fcb.chunk.js"
+  ]
+}
