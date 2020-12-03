@@ -4,14 +4,6 @@ import { Card, Button } from 'react-bootstrap'
 import sinan from './sinanSon.jpeg'
 import './Slider.css'
 
-const MyCard = () => {
-  return (
-    <div className="carde">
-      <h2>Hello</h2>
-    </div>
-  )
-}
-
 const BCard = () => {
   return (
     <Card style={{ width: "302px", height: "400px", textAlign: "left" }} >

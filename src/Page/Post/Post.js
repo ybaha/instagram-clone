@@ -2,11 +2,16 @@ import React from 'react'
 import './Post.css'
 import postImage from './post.jpg'
 
-export default function Posts() {
+export default function Post() {
   return (
     <div className="post">
-      <div className="post-header"></div>
-      <img src={postImage} width="600px" alt="landscape post"></img>
+      <div className="post-header">
+        <div className="photo" style={{marginLeft:"10px"}}></div>
+        <div className="username">ybahae</div>
+        <div></div>
+      </div>
+      <img style={{width: "100%"}} src={postImage} alt="landscape post"></img>
+      <div></div>
       <div className="post-btns-section">
         <div className="post-btns">XX</div>
         <div className="post-btns">XX</div>

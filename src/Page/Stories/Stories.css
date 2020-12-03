@@ -1,16 +1,6 @@
-body{
-  background-color: rgb(240, 240, 240);
-}
-.carde {
-  width: 300px;
-  height: 400px;
-  background-color: gray;
-  border: 5px solid black;
-}
-
-.carde h2 {
-  margin: 5px;
-  background-color: rgb(117, 117, 117);
+.story-container{
+  width: 614px;
+  min-width: 614px;
 }
 
 .card-container {
@@ -18,16 +8,22 @@ body{
   flex-direction: row;
   justify-content: space-around;
   width: 614px;
+  min-width: 614px;
+
+
+  
 }
 
 .scroll-container {
-  position: relative;
-  width: 600px;
-  margin: 32px auto 10px auto;
-  padding: 20px;
+  position: absolute;
+  width: 592px;
+  display: block;
+  margin: 34px auto;
+  padding: 20px 10px 24px 10px;
   border: 1px solid lightgray;
-  border-radius: 4px;
-  background-color: rgb(250, 250, 250);
+  border-radius: 3px;
+  background-color: #ffffff;
+  
 }
 
 .story {
@@ -57,19 +53,6 @@ body{
   background-color: wheat;
 }
 
-.storyDisplay {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 0;
-  background-color: gray;
-  width: 500px;
-}
-
-.storyDisplay div {
-  z-index: 0;
-  display: none;
-}
 
 .story-close-btn{
   display: none;
@@ -77,6 +60,14 @@ body{
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+
+@media (max-width:660px){
+  .scroll-container{
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
 
 .insta {
@@ -95,4 +86,14 @@ body{
   -webkit-text-fill-color: transparent;
 
   font-size: 200px; /* change this to change the size*/
+}
+
+.sil{
+  width: 600px;
+}
+
+@media(max-width: 660px){
+  .sil{
+    width: 100%;
+  }
 }

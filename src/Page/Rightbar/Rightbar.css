@@ -1,0 +1,40 @@
+.recommended-users{
+  display: flex;
+  width: 293px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.photo{
+  width: 32px;
+  height: 32px;
+  background-color: gray;
+  border-radius: 20px;
+}
+
+.username{
+  display: inline;
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 10px;
+}
+
+.follow-btn{
+  display: inline;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgb(25, 110, 221);
+}
+
+@media (max-width: 1000px) {
+  .rec-text{
+    display: none;
+  }
+  .Rightbar{
+    display: none;
+  }
+  .Leftbar{
+    margin: 0 auto;
+  }
+}

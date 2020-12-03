@@ -1,13 +1,19 @@
-import NavbarTop from './Navbar'
-import Stories from './Stories';
-import Posts from './Posts';
+import NavbarTop from './Navbar/Navbar'
+import Page from './Page/Page';
+import StoryUI from './Page/Stories/StoryUI'
 
 function App() {
   return (
     <div className="App">
-      <NavbarTop />
-      <Stories />
-      <Posts />
+      <>
+        <StoryUI />
+      </>
+
+      <>
+        <NavbarTop />
+        <Page />
+      </>
+
     </div>
   );
 }

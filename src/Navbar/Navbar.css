@@ -1,0 +1,76 @@
+.navbar {
+  top: 0;
+  z-index: 1;
+  position: fixed;
+  background-color: white;
+  border-bottom: 1px solid lightgray;
+  height: 53px;
+  min-height: 53px;
+  min-width: 100vw;
+  width: 100vw;
+  display: block;
+  margin-bottom: 100px;
+}
+
+.navbar-container{
+  max-width: 935px;
+  background-color: white;
+  padding: 0 20px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  height: 53px;
+}
+
+
+.navbar-btns-sec {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 15vw;
+  min-width: 220px;
+  height: 40px;
+}
+
+.navbar-btns {
+  width: 22px;
+  height: 22px;
+  margin: 0 12px;
+}
+
+.istekram-logo {
+  object-fit: contain;
+  height: 30px;
+  width: 100px;
+}
+
+.navbar-container input{
+  border: 1px solid lightgray;
+  background-color: #fafafa;
+  height: 24px;
+  width: 209px;
+  border-radius: 3px;
+  text-align: center;
+  margin-left: 171px;
+}
+
+.navbar-container input:focus {
+  text-align: left;
+}
+
+@media (max-width:550px){
+  .navbar-container input{
+    display: none;
+  }
+}
+@media (max-width:438px){
+  .navbar-btns-sec{
+    display: none;
+  }
+  .istekram-logo{
+    margin: 0 auto;
+    justify-content: center;
+  }
+}
