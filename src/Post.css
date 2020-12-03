@@ -1,0 +1,43 @@
+.post {
+  width: 602px;
+  height: 1000px;
+  margin: 20px auto 20px auto;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+  background-color: rgb(250, 250, 250);
+}
+
+.post-header {
+  height: 60px;
+}
+
+.post-image{
+
+}
+
+.post-btns-section{
+  width: 600px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid lightgray;
+}
+
+.post-btns{
+  left: 0;
+  margin: 0 20px;
+}
+
+.post-sub{
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.post-likes{
+
+}
+
+.bold-text{
+  font-weight: 500;
+  display: inline-block;
+}
