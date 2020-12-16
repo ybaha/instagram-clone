@@ -10,18 +10,7 @@ export default function Rightbar() {
   const messageContainer = useRef()
 
 
-  // messageContainer.current.className = "messages-container"
-  // messagesButton.current.style.display = "none"
-
-  // messageContainer.current.className = "messages-container active"
-
-  // messagesButton.current.style.display = "inline-block"
-
-
-
-
   useEffect(() => {
-    console.log(windowWidth)
     if (windowWidth < 933) {
       messageContainer.current.className = "messages-container active"
     }
@@ -35,7 +24,7 @@ export default function Rightbar() {
           <img width="8px" height="8px" src="https://img.icons8.com/emoji/48/000000/green-circle-emoji.png" />
         </div>
       </div>
-      <div style={{ overflowY: "auto", overflowX:"hidden", height: "calc(100% - 60px)" }}>
+      <div style={{ overflowY: "auto", overflowX:"hidden", height: "calc(100% - 95px)"}}>
         <Message
           incoming={true}
           senderImg={img}

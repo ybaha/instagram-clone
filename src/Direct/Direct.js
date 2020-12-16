@@ -5,15 +5,21 @@ import Leftbar from './Leftbar'
 import Rightbar from './Rightbar'
 import { Switch, Route } from 'react-router-dom'
 import { useWindowSize } from '../Home/Stories/Resize'
-import { Direct } from '../icons'
-
+import { Hamburger } from '../icons'
 export default function DirectD() {
   const [contactClicked, setContactClicked] = useState(false)
   const [windowWidth] = useWindowSize()
 
   const changeButton = () => {
+    const buttonStyle = {
+      width: "22px",
+      height: "22px",
+      position: "absolute",
+      left: "10px", top: "19px"
+
+    }
     return (
-      <button style={{ width: "24px", height: "24px" }} onClick={() => { setContactClicked(!contactClicked) }} />
+      <Hamburger style={buttonStyle} className="button" onClick={() => { setContactClicked(!contactClicked) }} />
     )
   }
 
@@ -24,11 +30,11 @@ export default function DirectD() {
   }
 
   const handleUI = () => {
-    return(
-    windowWidth < 934 ?
-      <Route component={contactClicked ? Leftbar : Rightbar} />
-    :
-      <><Leftbar></Leftbar><Rightbar></Rightbar></>
+    return (
+      windowWidth < 934 ?
+        <Route component={contactClicked ? Leftbar : Rightbar} />
+        :
+        <><Leftbar></Leftbar><Rightbar></Rightbar></>
     )
   }
 

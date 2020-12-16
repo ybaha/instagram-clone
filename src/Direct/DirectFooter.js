@@ -7,7 +7,6 @@ export default function DirectFooter(p) {
   const contactClicked = p.contactClicked
   return (
     <div className="direct-footer">
-      
       {contactClicked ? <Input></Input> : ""}
       <div style={{
         display: "flex",
@@ -17,13 +16,7 @@ export default function DirectFooter(p) {
         minWidth: "220px",
         height: "60px",
       }}>
-        <NavbarButtons
-          style={{
-            margin: "0 auto"
-          }}
-          button={Button}
-        >
-        </NavbarButtons>
+        <NavbarButtons button={Button} />
       </div>
     </div >
   )

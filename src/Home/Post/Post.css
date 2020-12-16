@@ -55,6 +55,8 @@
 @media (max-width:660px){
   .post{
     width: 100%;
+    border-right: none;
+    border-left: none;
   }
   .post-btn-seciton{
     width: 100%;

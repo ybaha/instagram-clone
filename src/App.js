@@ -21,8 +21,8 @@ function App() {
       <Router>
         <NavbarTop />
         <Switch>
-          <Route exact path="/" component={HomeComponent} />
-          <Route path="/direct/inbox" component={Direct} />
+          <Route exact path="/istekram" component={HomeComponent} />
+          <Route path="/istekram/direct/inbox" component={Direct} />
         </Switch>
       </Router>
     </div>
