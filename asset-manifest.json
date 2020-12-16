@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/istekram/static/css/main.23e5e00a.chunk.css",
-    "main.js": "/istekram/static/js/main.d5a26fcb.chunk.js",
-    "main.js.map": "/istekram/static/js/main.d5a26fcb.chunk.js.map",
+    "main.css": "/istekram/static/css/main.c2c3216e.chunk.css",
+    "main.js": "/istekram/static/js/main.de33c488.chunk.js",
+    "main.js.map": "/istekram/static/js/main.de33c488.chunk.js.map",
     "runtime-main.js": "/istekram/static/js/runtime-main.0be4bf57.js",
     "runtime-main.js.map": "/istekram/static/js/runtime-main.0be4bf57.js.map",
-    "static/js/2.e3662834.chunk.js": "/istekram/static/js/2.e3662834.chunk.js",
-    "static/js/2.e3662834.chunk.js.map": "/istekram/static/js/2.e3662834.chunk.js.map",
+    "static/js/2.d1b96be9.chunk.js": "/istekram/static/js/2.d1b96be9.chunk.js",
+    "static/js/2.d1b96be9.chunk.js.map": "/istekram/static/js/2.d1b96be9.chunk.js.map",
     "index.html": "/istekram/index.html",
-    "static/css/main.23e5e00a.chunk.css.map": "/istekram/static/css/main.23e5e00a.chunk.css.map",
-    "static/js/2.e3662834.chunk.js.LICENSE.txt": "/istekram/static/js/2.e3662834.chunk.js.LICENSE.txt",
+    "static/css/main.c2c3216e.chunk.css.map": "/istekram/static/css/main.c2c3216e.chunk.css.map",
+    "static/js/2.d1b96be9.chunk.js.LICENSE.txt": "/istekram/static/js/2.d1b96be9.chunk.js.LICENSE.txt",
     "static/media/comment.545290bf.svg": "/istekram/static/media/comment.545290bf.svg",
     "static/media/direct-fill.41ceaebe.svg": "/istekram/static/media/direct-fill.41ceaebe.svg",
     "static/media/direct.98fdd793.svg": "/istekram/static/media/direct.98fdd793.svg",
@@ -34,8 +34,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.0be4bf57.js",
-    "static/js/2.e3662834.chunk.js",
-    "static/css/main.23e5e00a.chunk.css",
-    "static/js/main.d5a26fcb.chunk.js"
+    "static/js/2.d1b96be9.chunk.js",
+    "static/css/main.c2c3216e.chunk.css",
+    "static/js/main.de33c488.chunk.js"
   ]
 }
