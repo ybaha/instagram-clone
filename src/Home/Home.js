@@ -1,8 +1,9 @@
 import React from 'react'
 import Rightbar from './Rightbar/Rightbar'
 import Post from './Post/Post'
-import './Page.css'
+import './Home.css'
 import Stories from './Stories/Stories'
+import NavbarTop from '../Navbar/Navbar'
 
 export default function Page() {
   return (
@@ -16,7 +17,6 @@ export default function Page() {
           <Post />
           <Post />
         </div>
-    
       </div>
       <Rightbar />
     </div>

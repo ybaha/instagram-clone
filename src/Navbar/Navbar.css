@@ -12,7 +12,7 @@
   margin-bottom: 100px;
 }
 
-.navbar-container{
+.navbar-container {
   max-width: 935px;
   background-color: white;
   padding: 0 20px;
@@ -23,7 +23,6 @@
   margin: 0 auto;
   height: 53px;
 }
-
 
 .navbar-btns-sec {
   display: flex;
@@ -46,7 +45,7 @@
   width: 100px;
 }
 
-.navbar-container input{
+.navbar-container input {
   border: 1px solid lightgray;
   background-color: #fafafa;
   height: 24px;
@@ -60,17 +59,39 @@
   text-align: left;
 }
 
-@media (max-width:550px){
-  .navbar-container input{
+@media (max-width: 935px) {
+  .navbar-btns-sec {
     display: none;
   }
-}
-@media (max-width:438px){
-  .navbar-btns-sec{
-    display: none;
-  }
-  .istekram-logo{
+  .istekram-logo {
     margin: 0 auto;
     justify-content: center;
   }
+  .navbar-container {
+    padding: 0;
+  }
+  .navbar-container input {
+    display: none;
+  }
 }
+
+/* @media (max-width: 550px) {
+  .navbar-container input {
+    display: none;
+  }
+  .navbar-btns-sec {
+    margin-right: 20px;
+  }
+}
+@media (max-width: 438px) {
+  .navbar-btns-sec {
+    display: none;
+  }
+  .istekram-logo {
+    margin: 0 auto;
+    justify-content: center;
+  }
+  .navbar-container {
+    padding: 0;
+  }
+} */
