@@ -1,20 +1,21 @@
 {
   "files": {
-    "main.css": "/istekram/static/css/main.c2c3216e.chunk.css",
-    "main.js": "/istekram/static/js/main.5455e683.chunk.js",
-    "main.js.map": "/istekram/static/js/main.5455e683.chunk.js.map",
+    "main.css": "/istekram/static/css/main.bc341b38.chunk.css",
+    "main.js": "/istekram/static/js/main.2b2ff5a0.chunk.js",
+    "main.js.map": "/istekram/static/js/main.2b2ff5a0.chunk.js.map",
     "runtime-main.js": "/istekram/static/js/runtime-main.0be4bf57.js",
     "runtime-main.js.map": "/istekram/static/js/runtime-main.0be4bf57.js.map",
-    "static/js/2.d1b96be9.chunk.js": "/istekram/static/js/2.d1b96be9.chunk.js",
-    "static/js/2.d1b96be9.chunk.js.map": "/istekram/static/js/2.d1b96be9.chunk.js.map",
+    "static/js/2.70d73b9a.chunk.js": "/istekram/static/js/2.70d73b9a.chunk.js",
+    "static/js/2.70d73b9a.chunk.js.map": "/istekram/static/js/2.70d73b9a.chunk.js.map",
     "index.html": "/istekram/index.html",
-    "static/css/main.c2c3216e.chunk.css.map": "/istekram/static/css/main.c2c3216e.chunk.css.map",
-    "static/js/2.d1b96be9.chunk.js.LICENSE.txt": "/istekram/static/js/2.d1b96be9.chunk.js.LICENSE.txt",
+    "static/css/main.bc341b38.chunk.css.map": "/istekram/static/css/main.bc341b38.chunk.css.map",
+    "static/js/2.70d73b9a.chunk.js.LICENSE.txt": "/istekram/static/js/2.70d73b9a.chunk.js.LICENSE.txt",
     "static/media/comment.545290bf.svg": "/istekram/static/media/comment.545290bf.svg",
     "static/media/direct-fill.41ceaebe.svg": "/istekram/static/media/direct-fill.41ceaebe.svg",
     "static/media/direct.98fdd793.svg": "/istekram/static/media/direct.98fdd793.svg",
     "static/media/explore-fill.d7e2485e.svg": "/istekram/static/media/explore-fill.d7e2485e.svg",
     "static/media/explore.87861f4d.svg": "/istekram/static/media/explore.87861f4d.svg",
+    "static/media/hamburger.266320c0.svg": "/istekram/static/media/hamburger.266320c0.svg",
     "static/media/home-fill.d0b0d084.svg": "/istekram/static/media/home-fill.d0b0d084.svg",
     "static/media/home.e0e115d0.svg": "/istekram/static/media/home.e0e115d0.svg",
     "static/media/igtv.9831080c.svg": "/istekram/static/media/igtv.9831080c.svg",
@@ -34,8 +35,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.0be4bf57.js",
-    "static/js/2.d1b96be9.chunk.js",
-    "static/css/main.c2c3216e.chunk.css",
-    "static/js/main.5455e683.chunk.js"
+    "static/js/2.70d73b9a.chunk.js",
+    "static/css/main.bc341b38.chunk.css",
+    "static/js/main.2b2ff5a0.chunk.js"
   ]
 }
