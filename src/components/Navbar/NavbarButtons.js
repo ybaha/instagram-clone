@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { useAuth } from "../../Firebase/AuthContext"
 import {
   Direct,
   DirectFill,
@@ -14,14 +15,22 @@ import {
   SaveBorder
 } from '../icons'
 import { Link } from 'react-router-dom'
+import Dropdown from './Dropdown'
 
 export default function NavbarButtons(e) {
   const Button = e.button
   const history = useHistory()
+  const { logout } = useAuth()
+  const [dropdown, setDropdown] = React.useState(false)
 
   const handleHistory = (p) => {
     history.push(p)
     console.log("pushed")
+  }
+
+  const handleDropdown = () => {
+    setDropdown(!dropdown)
+    console.log("dropdown:", dropdown)
   }
 
   return (
@@ -52,7 +61,10 @@ export default function NavbarButtons(e) {
       </div>
       <div className="navbar-btns"><Explore /></div>
       <div className="navbar-btns"><Like /></div>
-      <div className="navbar-btns"><Profile /></div>
+      <div className="navbar-btns" onClick={handleDropdown} style={{cursor:"pointer"}}>
+        <Profile />
+        {dropdown ? <Dropdown /> : <div></div>}
+      </div>
     </div>
   )
 }

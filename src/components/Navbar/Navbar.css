@@ -59,6 +59,30 @@
   text-align: left;
 }
 
+.dd-item{
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  cursor: pointer;
+  width: 130px;
+}
+
+.dd-item svg{
+  margin: 10px;
+  padding-left: 8px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.dd-logout{
+  font-size: 13px;
+  margin-top: -8px;
+  margin-left: 20px;
+  height: 20px;
+  width: 60px;
+  cursor: pointer;
+}
+
 @media (max-width: 935px) {
   .navbar-btns-sec {
     display: none;

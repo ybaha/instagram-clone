@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App'
+import Router from './Firebase/Router'
+import { AuthProvider } from "./Firebase/AuthContext"
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <AuthProvider>
+    <Router />
+  </AuthProvider>
+  ,
   document.getElementById('root')
 );
 
