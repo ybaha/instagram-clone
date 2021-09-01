@@ -12,9 +12,13 @@ var postCommentsSchema = new mongoose_1.default.Schema({
     likes: { type: [likesSchema], default: [] },
     username: String,
 });
+var getDate = function () {
+    var date = new Date();
+    return date.getTime();
+};
 var postSchema = new mongoose_1.default.Schema({
     comments: { type: [postCommentsSchema], default: [] },
-    date: { type: Number, default: Date.now() },
+    date: { type: Number, default: getDate },
     image: String,
     likes: { type: [likesSchema], default: [] },
     liked: { type: Boolean, default: false },

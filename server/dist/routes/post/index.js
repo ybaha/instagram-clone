@@ -42,6 +42,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostRouter = void 0;
 var express_1 = __importDefault(require("express"));
 var postSchema_1 = __importDefault(require("../../models/postSchema"));
+var multer_1 = __importDefault(require("multer"));
+var imgbb_1 = __importDefault(require("imgbb"));
+var fs = require("fs").promises;
 var router = express_1.default.Router();
 exports.PostRouter = router;
 // GET ALL POSTS
@@ -49,32 +52,97 @@ router.get("/api/posts", function (req, res) { return __awaiter(void 0, void 0, 
     var allPosts;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, postSchema_1.default.find()];
+            case 0: return [4 /*yield*/, postSchema_1.default.find().sort({ date: "desc" })];
             case 1:
                 allPosts = _a.sent();
                 return [2 /*return*/, res.send(allPosts)];
         }
     });
 }); });
+var storage = multer_1.default.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "src/temp");
+    },
+    filename: function (req, file, cb) {
+        var name = file === null || file === void 0 ? void 0 : file.originalname;
+        cb(null, name);
+    },
+});
+var upload = multer_1.default({ storage: storage });
+var key = "a1e4a333e66c1b8d5163332ba42cd473";
 // CREATE A POST
-router.post("/api/post/create", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var body, response, err_1;
+router.post("/api/post/create/customimg", upload.single("image"), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var body, file, image, date, name, api, bbres, _a, _b, imageUrl, response, err_1;
+    var _c;
+    var _d, _e;
+    return __generator(this, function (_f) {
+        switch (_f.label) {
+            case 0:
+                body = req.body;
+                file = req.file;
+                console.log(body);
+                console.log(file);
+                return [4 /*yield*/, fs.readFile(file.path, { encoding: "base64" })];
+            case 1:
+                image = _f.sent();
+                date = Date.now();
+                name = body.username + "_" + date;
+                api = new imgbb_1.default({
+                    token: key,
+                });
+                _b = (_a = api)
+                    .upload;
+                _c = {
+                    name: name
+                };
+                return [4 /*yield*/, fs.readFile(file.path)];
+            case 2: return [4 /*yield*/, _b.apply(_a, [(_c.image = _f.sent(),
+                        _c)])
+                    .catch(function (e) { return console.log(e); })];
+            case 3:
+                bbres = _f.sent();
+                imageUrl = (_e = (_d = bbres.data) === null || _d === void 0 ? void 0 : _d.image) === null || _e === void 0 ? void 0 : _e.url;
+                console.log(imageUrl);
+                _f.label = 4;
+            case 4:
+                _f.trys.push([4, 6, , 7]);
+                return [4 /*yield*/, postSchema_1.default.create({
+                        username: body.username,
+                        text: body.text,
+                        image: imageUrl,
+                        date: date,
+                    })];
+            case 5:
+                response = _f.sent();
+                return [3 /*break*/, 7];
+            case 6:
+                err_1 = _f.sent();
+                console.log(err_1);
+                return [3 /*break*/, 7];
+            case 7:
+                if (response)
+                    return [2 /*return*/, res.send({ success: true })];
+                else
+                    return [2 /*return*/, res.send({ success: false })];
+                return [2 /*return*/];
+        }
+    });
+}); });
+router.post("/api/post/create/", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var response, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                body = req.body;
-                _a.label = 1;
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, postSchema_1.default.create(req.body)];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, postSchema_1.default.create(body)];
-            case 2:
                 response = _a.sent();
-                return [3 /*break*/, 4];
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                console.log(err_2);
+                return [3 /*break*/, 3];
             case 3:
-                err_1 = _a.sent();
-                console.log(err_1);
-                return [3 /*break*/, 4];
-            case 4:
                 if (response)
                     return [2 /*return*/, res.send({ success: true })];
                 else

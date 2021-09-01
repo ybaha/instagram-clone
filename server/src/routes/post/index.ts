@@ -9,8 +9,7 @@ const router = express.Router();
 
 // GET ALL POSTS
 router.get("/api/posts", async (req: Request, res: Response) => {
-  let allPosts: postDoc[] = await Post.find();
-  allPosts = allPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
+  let allPosts: postDoc[] = await Post.find().sort({ date: "desc" });
   return res.send(allPosts);
 });
 
