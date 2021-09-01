@@ -3,13 +3,14 @@ import bodyParser, { json } from "body-parser";
 import { router } from "./routes";
 import mongoose from "mongoose";
 import cors from "cors";
+import { pw } from "./pw";
 
 const port = process.env.PORT || 5000;
 const app = express();
 
 const mongooseURL =
   process.env.NODE_ENV === "prod"
-    ? "mongodb+srv://baha:<password>@cluster0.x0mow.mongodb.net/myFirstDatabase"
+    ? "mongodb+srv://baha:" + pw + "@cluster0.x0mow.mongodb.net/myFirstDatabase"
     : "mongodb://localhost/istekram";
 
 mongoose.connect(mongooseURL);
