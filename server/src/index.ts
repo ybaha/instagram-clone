@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 const mongooseURL =
-  "mongodb+srv://baha:" + pw + "@cluster0.x0mow.mongodb.net/myFirstDatabase";
+  "mongodb+srv://baha:" + pw + "@cluster0.x0mow.mongodb.net/istekram";
 // "mongodb://localhost/istekram";
 
 console.log(mongooseURL);
