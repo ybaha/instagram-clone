@@ -8,12 +8,6 @@ export default function Leftbar() {
   const contactsContainer = useRef<any>();
   const contactsButton = useRef();
 
-  // contactsContainer.current.className = "contacts-container active"
-  // contactsButton.current.style.display = "inline-block"
-
-  // contactsContainer.current.className = "contacts-container"
-  // contactsButton.current.style.display = "none"
-
   return (
     <div className="contacts-container active" ref={contactsContainer}>
       <div className="contacts-header"></div>

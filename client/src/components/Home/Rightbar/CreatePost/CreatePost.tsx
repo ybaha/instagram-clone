@@ -4,16 +4,20 @@ import ReactDOM from "react-dom";
 import { Add } from "../../../icons";
 import s from "./index.module.scss";
 import { useAuth } from "../../../../Firebase/AuthContext";
+import { useStore } from "../../../../store/UIStore";
+import { observer } from "mobx-react-lite";
 
-type Props = {
-  setPosts: Function;
-  style?: object;
-};
-
-const CreatePost: React.FC<Props> = ({ setPosts, style }) => {
-  const [showUI, setShowUI] = React.useState(false);
+const CreatePost = ({ style }: { style?: object }) => {
+  const [uploadedImage, setUploadedImage] = React.useState({
+    preview: "",
+    raw: "",
+  });
   const [alert, setAlert] = React.useState("");
+  const [isURL, setIsURL] = React.useState(true);
+  const { setPosts, showUI, setShowUI } = useStore();
   const { getCurrentUsername } = useAuth();
+  const imgUrlRef: any = React.useRef();
+  const imgTextRef: any = React.useRef();
 
   const handleClick = () => {
     setShowUI(!showUI);
@@ -36,23 +40,42 @@ const CreatePost: React.FC<Props> = ({ setPosts, style }) => {
   const handleSubmit = async (e: any) => {
     // TODO
     e.preventDefault();
+
     let username = getCurrentUsername();
-    let image = e.target.childNodes[0].childNodes[1].value;
-    let text = e.target.childNodes[1].childNodes[1].value;
+
+    const imgObj = new FormData();
+
+    let image = imgUrlRef?.current?.value;
+    let text = imgTextRef?.current?.value;
+    imgObj.append("image", uploadedImage.raw);
+    imgObj.append("username", username);
+    imgObj.append("text", text);
 
     if (!username) setAlert("network error");
     if (!validURL(image)) setAlert("invalid url");
     if (text.length > 256) setAlert("text length is longer than 256");
     if (!!alert) return;
 
-    let res = await axios.post(
-      process.env.REACT_APP_SERVER! + "api/post/create",
-      {
-        image: image,
-        text: text,
-        username: username,
-      }
-    );
+    console.log(image);
+
+    let data;
+
+    if (isURL) {
+      data = {
+        image,
+        text,
+        username,
+      };
+    } else {
+      data = imgObj;
+    }
+
+    console.log(data);
+    let url = isURL
+      ? process.env.REACT_APP_SERVER! + "api/post/create"
+      : process.env.REACT_APP_SERVER! + "api/post/create/customimg";
+
+    let res = await axios.post(url, data);
     console.log(res.data);
 
     if (res.data.success === true) {
@@ -63,6 +86,21 @@ const CreatePost: React.FC<Props> = ({ setPosts, style }) => {
 
   const handleImageInputChange = async (e: any) => {};
 
+  const handleUploadImage = (e: any) => {
+    e.preventDefault();
+    if (e.target.files.length) {
+      let a = e.target.files[0];
+      Object.defineProperty(a, "name", {
+        writable: true,
+        value: "image." + a.name.split(".").pop(),
+      });
+      setUploadedImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: a,
+      });
+    }
+  };
+
   const CreatePostUI: React.FC = () => {
     let app = document.getElementById("root");
     if (app) {
@@ -72,15 +110,41 @@ const CreatePost: React.FC<Props> = ({ setPosts, style }) => {
             <div className={s.uiMain}>
               <form onSubmit={(e: any) => handleSubmit(e)}>
                 <div className={s.formRow}>
-                  <span>Image Url</span>
-                  <input
-                    onChange={handleImageInputChange}
-                    maxLength={256}
-                  ></input>
+                  {isURL ? (
+                    <>
+                      <span>Image Url</span>
+                      <input
+                        onChange={handleImageInputChange}
+                        maxLength={600}
+                        ref={imgUrlRef}
+                      ></input>
+                    </>
+                  ) : (
+                    <>
+                      <span>Image</span>
+                      <input
+                        type="file"
+                        onChange={handleUploadImage}
+                        style={{ display: "none" }}
+                        id="file"
+                      ></input>
+                      <label htmlFor={"file"}>
+                        {!!uploadedImage.preview.length
+                          ? "Yuklendi. Tekrar secmek icin dokun"
+                          : "Select Image"}
+                      </label>
+                    </>
+                  )}
                 </div>
+                <button
+                  style={{ width: "100px" }}
+                  onClick={() => setIsURL(!isURL)}
+                >
+                  {isURL ? "Cihazdan" : "URL ile"}
+                </button>
                 <div className={s.formRow}>
                   <span>Text</span>
-                  <input maxLength={256}></input>
+                  <input maxLength={256} ref={imgTextRef}></input>
                 </div>
                 <button type="submit">Gonderi Olustur</button>
               </form>
@@ -111,4 +175,4 @@ const CreatePost: React.FC<Props> = ({ setPosts, style }) => {
   );
 };
 
-export default CreatePost;
+export default observer(CreatePost);

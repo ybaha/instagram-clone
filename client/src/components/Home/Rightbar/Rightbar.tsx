@@ -3,7 +3,7 @@ import s from "./Rightbar.module.scss";
 import Recommended from "./Recomended/Recommended";
 import CreatePost from "./CreatePost/CreatePost";
 
-export default function Rightbar({ setPosts }: { setPosts: Function }) {
+export default function Rightbar() {
   return (
     <div className={s.Rightbar} style={{ position: "sticky" }}>
       <p
@@ -17,7 +17,7 @@ export default function Rightbar({ setPosts }: { setPosts: Function }) {
       <Recommended />
       <Recommended />
 
-      <CreatePost setPosts={setPosts} />
+      <CreatePost />
     </div>
   );
 }

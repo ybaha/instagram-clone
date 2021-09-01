@@ -1,20 +1,84 @@
 import express, { Request, Response } from "express";
 import Post, { likesDoc, postDoc } from "../../models/postSchema";
+import multer from "multer";
+import axios from "axios";
+import ApiClient from "imgbb";
+const fs = require("fs").promises;
 
 const router = express.Router();
 
 // GET ALL POSTS
 router.get("/api/posts", async (req: Request, res: Response) => {
-  let allPosts = await Post.find();
+  let allPosts: postDoc[] = await Post.find();
+  allPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
   return res.send(allPosts);
 });
 
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "src/temp");
+  },
+  filename: function (req, file, cb) {
+    let name = file?.originalname;
+    cb(null, name);
+  },
+});
+
+var upload = multer({ storage: storage });
+let key = "a1e4a333e66c1b8d5163332ba42cd473";
+
 // CREATE A POST
-router.post("/api/post/create", async (req: Request, res: Response) => {
-  let body = req.body;
+router.post(
+  "/api/post/create/customimg",
+  upload.single("image"),
+  async (req: Request, res: Response) => {
+    let body = req.body;
+    let file = req.file!;
+    // console.log(body);
+    // console.log(file);
+
+    let image = await fs.readFile(file.path, { encoding: "base64" });
+
+    let date = Date.now();
+
+    let name = body.username + "_" + date;
+
+    let api = new ApiClient({
+      token: key,
+    });
+
+    let bbres: any = await api
+      .upload({
+        name: name,
+        image: await fs.readFile(file.path),
+      })
+      .catch((e) => console.log(e));
+
+    let imageUrl = bbres.data?.image?.url;
+
+    // console.log(imageUrl);
+
+    let response: any;
+    try {
+      response = await Post.create({
+        username: body.username,
+        text: body.text,
+        image: imageUrl,
+        date: date,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    if (response) return res.send({ success: true });
+    else return res.send({ success: false });
+  }
+);
+
+router.post("/api/post/create/", async (req: Request, res: Response) => {
   let response: any;
+  // console.log(req.body);
   try {
-    response = await Post.create(body);
+    response = await Post.create(req.body);
   } catch (err) {
     console.log(err);
   }

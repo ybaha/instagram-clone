@@ -4,13 +4,17 @@ import { router } from "./routes";
 import mongoose from "mongoose";
 import cors from "cors";
 import { pw } from "./pw";
+import path from "path";
 
-const port = process.env.PORT || 5000;
+export const port = process.env.PORT || 5000;
 const app = express();
 
-const mongooseURL =
+let mongooseURL =
   "mongodb+srv://baha:" + pw + "@cluster0.x0mow.mongodb.net/istekram";
-// "mongodb://localhost/istekram";
+
+if (process.env.NODE_ENV === "dev") {
+  mongooseURL = "mongodb://localhost/istekram";
+}
 
 console.log(mongooseURL);
 console.log(process.env.NODE_ENV);
@@ -21,6 +25,7 @@ app.use(cors());
 app.use(json());
 app.use(express.json());
 app.use(router);
+app.use(express.static("public"));
 
 app.listen(port, () => {
   console.log("Server is up and runnning!");

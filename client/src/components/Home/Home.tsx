@@ -3,43 +3,33 @@ import Rightbar from "./Rightbar/Rightbar";
 import Post from "./Post/Post";
 import "./Home.css";
 import Stories from "./Stories/Stories";
-import NavbarTop from "../Navbar/Navbar";
 import FirebaseProvider, { useFirebase } from "../../Firebase/FirebaseContext";
 import axios from "axios";
 import { useWindowSize } from "./Stories/Resize";
 import CreatePost from "./Rightbar/CreatePost/CreatePost";
-
-type PostProps = {
-  userPicture: string;
-  username: string;
-  image: string;
-  text: string;
-  liked: boolean;
-  likes: { userID: string }[];
-  comments?: [];
-  date: number;
-  _id: string;
-};
+import { useStore } from "../../store/UIStore";
+import { observer } from "mobx-react-lite";
+import { useInterval } from "../../utils/useInterval";
 
 const Page: React.FC = () => {
-  const [posts, setPosts] = React.useState<[PostProps] | []>([]);
   const [windowWidth] = useWindowSize();
+  const { posts, setPosts, showUI } = useStore();
 
   const fetchPosts = async () => {
     let res = await axios.get(process.env.REACT_APP_SERVER + "api/posts");
     setPosts(res.data);
   };
 
+  useInterval(() => {
+    if (!showUI) fetchPosts();
+  }, 6000);
+
   React.useEffect(() => {
     fetchPosts();
-    let interval = setInterval(() => {
-      fetchPosts();
-    }, 10 * 1000);
   }, []);
 
   const displayPosts = () => {
     if (posts.length) {
-      posts.reverse();
       return posts.map((post, idx) => (
         <Post
           username={post.username}
@@ -71,16 +61,16 @@ const Page: React.FC = () => {
       <div className="Page">
         <div className="Leftbar">
           <Stories />
-          <div style={{ marginTop: "200px" }}>
+          <div style={{ marginTop: "200px", paddingBottom: "100px" }}>
             {windowWidth <= 1000 && (
-              <CreatePost setPosts={setPosts} style={{ marginTop: "-30px" }} />
+              <CreatePost style={{ marginTop: "-30px" }} />
             )}
             {displayPosts()}
           </div>
         </div>
-        <Rightbar setPosts={setPosts} />
+        <Rightbar />
       </div>
     </FirebaseProvider>
   );
 };
-export default Page;
+export default observer(Page);

@@ -31,9 +31,14 @@ const postCommentsSchema = new mongoose.Schema<postCommentsDoc>({
   username: String,
 });
 
+const getDate = () => {
+  let date = new Date();
+  return date.getTime();
+};
+
 const postSchema = new mongoose.Schema<postDoc>({
   comments: { type: [postCommentsSchema], default: [] },
-  date: { type: Number, default: Date.now() },
+  date: { type: Number, default: getDate },
   image: String,
   likes: { type: [likesSchema], default: [] },
   liked: { type: Boolean, default: false },
