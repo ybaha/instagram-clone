@@ -11,7 +11,7 @@ var cors_1 = __importDefault(require("cors"));
 var pw_1 = require("./pw");
 var port = process.env.PORT || 5000;
 var app = express_1.default();
-var mongooseURL = "mongodb+srv://baha:" + pw_1.pw + "@cluster0.x0mow.mongodb.net/myFirstDatabase";
+var mongooseURL = "mongodb+srv://baha:" + pw_1.pw + "@cluster0.x0mow.mongodb.net/istekram";
 // "mongodb://localhost/istekram";
 console.log(mongooseURL);
 console.log(process.env.NODE_ENV);
