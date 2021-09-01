@@ -9,9 +9,11 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 const mongooseURL =
-  process.env.NODE_ENV === "prod"
-    ? "mongodb+srv://baha:" + pw + "@cluster0.x0mow.mongodb.net/myFirstDatabase"
-    : "mongodb://localhost/istekram";
+  "mongodb+srv://baha:" + pw + "@cluster0.x0mow.mongodb.net/myFirstDatabase";
+// "mongodb://localhost/istekram";
+
+console.log(mongooseURL);
+console.log(process.env.NODE_ENV);
 
 mongoose.connect(mongooseURL);
 
