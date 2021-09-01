@@ -2,6 +2,7 @@ import React from "react";
 import s from "./Rightbar.module.scss";
 import Recommended from "./Recomended/Recommended";
 import CreatePost from "./CreatePost/CreatePost";
+import { useWindowSize } from "../Stories/Resize";
 
 export default function Rightbar() {
   return (
@@ -16,7 +17,6 @@ export default function Rightbar() {
       <Recommended />
       <Recommended />
       <Recommended />
-
       <CreatePost />
     </div>
   );

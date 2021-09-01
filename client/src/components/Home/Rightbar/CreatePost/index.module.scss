@@ -33,6 +33,13 @@
   display: none;
 }
 
+.mobile {
+  display: none;
+  @media screen and (max-width: 1000px) {
+    display: flex;
+  }
+}
+
 .layer {
   position: absolute;
   left: 0;
@@ -47,8 +54,8 @@
   display: flex;
   justify-content: center;
   background-color: white;
-  height: 70vh;
-  width: 50vw;
+  height: 500px;
+  width: 500px;
   z-index: 2;
   & > form {
     width: 70%;
@@ -64,4 +71,12 @@
     width: 70%;
     height: 28px;
   }
+  @media screen and (max-width: 1000px) {
+    width: 360px;
+    height: 360px;
+  }
+}
+
+.submit {
+  width: 100%;
 }

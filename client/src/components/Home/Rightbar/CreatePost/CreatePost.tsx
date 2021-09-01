@@ -7,7 +7,13 @@ import { useAuth } from "../../../../Firebase/AuthContext";
 import { useStore } from "../../../../store/UIStore";
 import { observer } from "mobx-react-lite";
 
-const CreatePost = ({ style }: { style?: object }) => {
+const CreatePost = ({
+  style,
+  mobile,
+}: {
+  style?: object;
+  mobile?: boolean;
+}) => {
   const [uploadedImage, setUploadedImage] = React.useState({
     preview: "",
     raw: "",
@@ -146,7 +152,9 @@ const CreatePost = ({ style }: { style?: object }) => {
                   <span>Text</span>
                   <input maxLength={256} ref={imgTextRef}></input>
                 </div>
-                <button type="submit">Gonderi Olustur</button>
+                <button type="submit" className={s.submit}>
+                  Gonderi Olustur
+                </button>
               </form>
             </div>
           </div>
@@ -163,7 +171,10 @@ const CreatePost = ({ style }: { style?: object }) => {
   };
 
   return (
-    <div className={s.buttonWrapper} style={style ? style : {}}>
+    <div
+      className={!mobile ? s.buttonWrapper : `${s.buttonWrapper} ${s.mobile}`}
+      style={style ? style : {}}
+    >
       <button className={s.createButton} onClick={handleClick}>
         <div style={{ width: "26px", margin: "0 12px", marginTop: "4px" }}>
           <Add />

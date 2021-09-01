@@ -10,7 +10,7 @@ const router = express.Router();
 // GET ALL POSTS
 router.get("/api/posts", async (req: Request, res: Response) => {
   let allPosts: postDoc[] = await Post.find();
-  allPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
+  allPosts = allPosts.sort((a, b) => (a.date < b.date ? 1 : -1));
   return res.send(allPosts);
 });
 
@@ -34,8 +34,8 @@ router.post(
   async (req: Request, res: Response) => {
     let body = req.body;
     let file = req.file!;
-    // console.log(body);
-    // console.log(file);
+    console.log(body);
+    console.log(file);
 
     let image = await fs.readFile(file.path, { encoding: "base64" });
 
@@ -56,7 +56,7 @@ router.post(
 
     let imageUrl = bbres.data?.image?.url;
 
-    // console.log(imageUrl);
+    console.log(imageUrl);
 
     let response: any;
     try {

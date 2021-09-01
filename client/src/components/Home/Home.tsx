@@ -12,7 +12,6 @@ import { observer } from "mobx-react-lite";
 import { useInterval } from "../../utils/useInterval";
 
 const Page: React.FC = () => {
-  const [windowWidth] = useWindowSize();
   const { posts, setPosts, showUI } = useStore();
 
   const fetchPosts = async () => {
@@ -62,9 +61,7 @@ const Page: React.FC = () => {
         <div className="Leftbar">
           <Stories />
           <div style={{ marginTop: "200px", paddingBottom: "100px" }}>
-            {windowWidth <= 1000 && (
-              <CreatePost style={{ marginTop: "-30px" }} />
-            )}
+            <CreatePost style={{ marginTop: "-30px" }} mobile={true} />
             {displayPosts()}
           </div>
         </div>
