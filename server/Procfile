@@ -1,0 +1,1 @@
+web: set NODE_ENV=prod && ts-node-dev src/index.ts

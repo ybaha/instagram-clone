@@ -28,12 +28,12 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "SET REACT_APP_SERVER=http://localhost:5000/ & react-scripts start",
+    "build": "SET REACT_APP_SERVER=https://istekram.herokuapp.com/ & react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d client/build"
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
