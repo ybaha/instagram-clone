@@ -6,6 +6,8 @@ import { Comment, Direct, Like, LikeFill } from "../../icons";
 import TimeAgo from "react-timeago";
 import axios from "axios";
 import { useAuth } from "../../../Firebase/AuthContext";
+import { useStore } from "../../../store/UIStore";
+import { observer } from "mobx-react-lite";
 
 type Props = {
   id: string;
@@ -33,11 +35,14 @@ const Post: React.FC<Props> = ({
   date,
   comments,
   userPicture,
-  liked,
+  // liked,
   id,
 }) => {
   const history = useHistory();
   const { getCurrentUsername, currentUser } = useAuth();
+  const { posts, setPosts } = useStore();
+  const [liked, setLiked] = React.useState(false);
+
   if (!image?.length) {
     image = postImage;
   }
@@ -48,13 +53,23 @@ const Post: React.FC<Props> = ({
     ));
   };
 
-  const handleLike = () => {
-    axios.post(process.env.REACT_APP_SERVER + "api/post/like/", {
-      username: getCurrentUsername(),
-      userId: currentUser?.uid,
-      postId: id,
-    });
+  const handleLike = async () => {
+    let res = await axios.post(
+      process.env.REACT_APP_SERVER + "api/post/like/",
+      {
+        username: getCurrentUsername(),
+        userId: currentUser?.uid,
+        postId: id,
+      }
+    );
+    let resget = await axios.get(process.env.REACT_APP_SERVER + "api/posts"); // TODO bad
+    setPosts(resget.data);
   };
+
+  React.useEffect(() => {
+    if (likes.some((el) => el.userID === currentUser?.uid)) setLiked(true);
+    else setLiked(false);
+  }, [posts]);
 
   return (
     <div className={styles.post}>
@@ -130,4 +145,4 @@ const Post: React.FC<Props> = ({
   );
 };
 
-export default Post;
+export default observer(Post);

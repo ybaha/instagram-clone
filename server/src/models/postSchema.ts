@@ -1,31 +1,31 @@
 import mongoose from "mongoose";
 
-export interface postCommentsDoc extends mongoose.Document {
+export interface PostCommentsDoc extends mongoose.Document {
   comment: String;
-  likes: likesDoc[];
+  likes: LikesDoc[];
   username: String;
 }
 
-export interface likesDoc extends mongoose.Document {
+export interface LikesDoc extends mongoose.Document {
   userID: String;
 }
 
-export interface postDoc extends mongoose.Document {
-  comments: postCommentsDoc[];
+export interface PostDoc extends mongoose.Document {
+  comments: PostCommentsDoc[];
   date: number;
   image: string;
-  likes: likesDoc[];
+  likes: LikesDoc[];
   liked: boolean;
   text: string;
   userPicture: string;
   username: String;
 }
 
-const likesSchema = new mongoose.Schema<likesDoc>({
+const likesSchema = new mongoose.Schema<LikesDoc>({
   userID: String,
 });
 
-const postCommentsSchema = new mongoose.Schema<postCommentsDoc>({
+const postCommentsSchema = new mongoose.Schema<PostCommentsDoc>({
   comment: String,
   likes: { type: [likesSchema] },
   username: String,
@@ -36,7 +36,7 @@ const getDate = () => {
   return date.getTime();
 };
 
-const postSchema = new mongoose.Schema<postDoc>({
+const postSchema = new mongoose.Schema<PostDoc>({
   comments: { type: [postCommentsSchema], default: [] },
   date: { type: Number, default: getDate },
   image: String,

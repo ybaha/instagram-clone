@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import Post, { likesDoc, postDoc } from "../../models/postSchema";
+import Post, { LikesDoc, PostDoc } from "../../models/postSchema";
 import multer from "multer";
 import axios from "axios";
 import ApiClient from "imgbb";
@@ -9,7 +9,7 @@ const router = express.Router();
 
 // GET ALL POSTS
 router.get("/api/posts", async (req: Request, res: Response) => {
-  let allPosts: postDoc[] = await Post.find().sort({ date: "desc" });
+  let allPosts: PostDoc[] = await Post.find().sort({ date: "desc" });
   return res.send(allPosts);
 });
 
@@ -93,28 +93,42 @@ type Like = {
 
 router.post("/api/post/like", async (req: Request, res: Response) => {
   let data: Like = req.body;
-  let post: any = await Post.find({ _id: data.postId });
-  console.log(post);
-  console.log(data);
-  console.log(post?.likes);
+  let post: PostDoc = await Post.findOne({ _id: data.postId }).exec();
+  // console.log(post);
+  // console.log(data);
+  // console.log(post?.likes);
 
-  Post.updateOne(
-    { _id: data.postId },
-    { $addToSet: { likes: [{ userID: data.userId }] } }
-  );
+  let isLiked = await Post.findOneAndUpdate(
+    {
+      $and: [
+        { _id: data.postId },
+        { likes: { $elemMatch: { userID: data.userId } } },
+      ],
+    },
+    { $pull: { likes: { userID: data.userId } } }
+  )
+    .exec()
+    .catch((e) => {
+      console.log(e);
+    });
 
-  if (post && post.likes === undefined) {
-    // First like
-    post.likes = [];
-    console.log("first like");
+  if (!isLiked) {
+    await Post.findOneAndUpdate(
+      {
+        $and: [
+          { _id: data.postId },
+          { likes: { $not: { $elemMatch: { userID: data.userId } } } },
+        ],
+      },
+      { $addToSet: { likes: { userID: data.userId } } }
+    )
+      .exec()
+      .catch((e) => {
+        console.log(e);
+      });
   }
-
-  post.likes.push({
-    //@ts-ignore
-    userID: data.userId,
-  });
-
-  post.save();
+  if (isLiked) return res.send({ liked: false });
+  return res.send({ liked: true });
 
   //TODO
 });
