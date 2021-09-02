@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/istekram/static/css/main.0d636b50.chunk.css",
-    "main.js": "/istekram/static/js/main.4157cbdb.chunk.js",
-    "main.js.map": "/istekram/static/js/main.4157cbdb.chunk.js.map",
+    "main.css": "/istekram/static/css/main.33b1b9c7.chunk.css",
+    "main.js": "/istekram/static/js/main.bafe77b2.chunk.js",
+    "main.js.map": "/istekram/static/js/main.bafe77b2.chunk.js.map",
     "runtime-main.js": "/istekram/static/js/runtime-main.0be4bf57.js",
     "runtime-main.js.map": "/istekram/static/js/runtime-main.0be4bf57.js.map",
-    "static/js/2.62ae5a2e.chunk.js": "/istekram/static/js/2.62ae5a2e.chunk.js",
-    "static/js/2.62ae5a2e.chunk.js.map": "/istekram/static/js/2.62ae5a2e.chunk.js.map",
+    "static/js/2.1963e5a3.chunk.js": "/istekram/static/js/2.1963e5a3.chunk.js",
+    "static/js/2.1963e5a3.chunk.js.map": "/istekram/static/js/2.1963e5a3.chunk.js.map",
     "index.html": "/istekram/index.html",
-    "static/css/main.0d636b50.chunk.css.map": "/istekram/static/css/main.0d636b50.chunk.css.map",
-    "static/js/2.62ae5a2e.chunk.js.LICENSE.txt": "/istekram/static/js/2.62ae5a2e.chunk.js.LICENSE.txt",
+    "static/css/main.33b1b9c7.chunk.css.map": "/istekram/static/css/main.33b1b9c7.chunk.css.map",
+    "static/js/2.1963e5a3.chunk.js.LICENSE.txt": "/istekram/static/js/2.1963e5a3.chunk.js.LICENSE.txt",
     "static/media/add.4c0ab963.svg": "/istekram/static/media/add.4c0ab963.svg",
     "static/media/comment.b863cb90.svg": "/istekram/static/media/comment.b863cb90.svg",
     "static/media/dd-profile.c42c6cb8.svg": "/istekram/static/media/dd-profile.c42c6cb8.svg",
@@ -36,12 +36,13 @@
     "static/media/save.38e49f17.svg": "/istekram/static/media/save.38e49f17.svg",
     "static/media/search.febc8c9f.svg": "/istekram/static/media/search.febc8c9f.svg",
     "static/media/setting.fd439d63.svg": "/istekram/static/media/setting.fd439d63.svg",
+    "static/media/subdir.0e812611.svg": "/istekram/static/media/subdir.0e812611.svg",
     "static/media/tag.6c93a3c5.svg": "/istekram/static/media/tag.6c93a3c5.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.0be4bf57.js",
-    "static/js/2.62ae5a2e.chunk.js",
-    "static/css/main.0d636b50.chunk.css",
-    "static/js/main.4157cbdb.chunk.js"
+    "static/js/2.1963e5a3.chunk.js",
+    "static/css/main.33b1b9c7.chunk.css",
+    "static/js/main.bafe77b2.chunk.js"
   ]
 }
