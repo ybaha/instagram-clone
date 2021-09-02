@@ -93,9 +93,29 @@ type Like = {
 
 router.post("/api/post/like", async (req: Request, res: Response) => {
   let data: Like = req.body;
-  let post: postDoc = await Post.find({ _id: data.postId });
+  let post: any = await Post.find({ _id: data.postId });
   console.log(post);
   console.log(data);
+  console.log(post?.likes);
+
+  Post.updateOne(
+    { _id: data.postId },
+    { $addToSet: { likes: [{ userID: data.userId }] } }
+  );
+
+  if (post && post.likes === undefined) {
+    // First like
+    post.likes = [];
+    console.log("first like");
+  }
+
+  post.likes.push({
+    //@ts-ignore
+    userID: data.userId,
+  });
+
+  post.save();
+
   //TODO
 });
 

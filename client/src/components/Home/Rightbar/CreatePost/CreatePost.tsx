@@ -134,7 +134,10 @@ const CreatePost = ({
                         style={{ display: "none" }}
                         id="file"
                       ></input>
-                      <label htmlFor={"file"}>
+                      <label
+                        htmlFor={"file"}
+                        style={{ background: "#0095f6", borderRadius: "3px" }}
+                      >
                         {!!uploadedImage.preview.length
                           ? "Yuklendi. Tekrar secmek icin dokun"
                           : "Select Image"}

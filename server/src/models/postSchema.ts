@@ -11,10 +11,10 @@ export interface likesDoc extends mongoose.Document {
 }
 
 export interface postDoc extends mongoose.Document {
-  comments: postCommentsDoc[] | [];
+  comments: postCommentsDoc[];
   date: number;
   image: string;
-  likes: likesDoc[] | [];
+  likes: likesDoc[];
   liked: boolean;
   text: string;
   userPicture: string;
@@ -27,7 +27,7 @@ const likesSchema = new mongoose.Schema<likesDoc>({
 
 const postCommentsSchema = new mongoose.Schema<postCommentsDoc>({
   comment: String,
-  likes: { type: [likesSchema], default: [] },
+  likes: { type: [likesSchema] },
   username: String,
 });
 
@@ -40,7 +40,7 @@ const postSchema = new mongoose.Schema<postDoc>({
   comments: { type: [postCommentsSchema], default: [] },
   date: { type: Number, default: getDate },
   image: String,
-  likes: { type: [likesSchema], default: [] },
+  likes: { type: [likesSchema] },
   liked: { type: Boolean, default: false },
   text: String,
   userPicture: { type: String, default: "default" },

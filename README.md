@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Incorrectly pronounced clone of Instagram
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
