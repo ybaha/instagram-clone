@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import "./Login.css";
+import s from "./Login.module.scss";
 
 export default function Login() {
   const emailRef = useRef<any>();
@@ -18,9 +18,7 @@ export default function Login() {
       setError("");
       setLoading(true);
       if (emailRef.current && passwordRef.current) {
-        //@ts-ignore
         await login(emailRef.current.value, passwordRef.current.value);
-        //@ts-ignore
         await login(emailRef.current.value, passwordRef.current.value);
       }
       history.push("/istekram");
@@ -32,18 +30,18 @@ export default function Login() {
   }
 
   return (
-    <div className="login-wrapper">
-      <div className="left-sec">
+    <div className={s.loginWrapper}>
+      <div className={s.leftSec}>
         <img src={process.env.PUBLIC_URL + "/phone.png"} alt="phones"></img>
       </div>
-      <div className="right-sec">
-        <div className="login-top">
+      <div className={s.rightSec}>
+        <div className={s.loginTop}>
           <img
             src={process.env.PUBLIC_URL + "/istekram.png"}
             height="51px"
             alt="logo"
           ></img>
-          <form onSubmit={handleSubmit}>
+          <form className={s.form} onSubmit={handleSubmit}>
             <div id="email">
               <input
                 type="email"
@@ -76,14 +74,14 @@ export default function Login() {
                 required
               />
             </div>
-            <button disabled={loading} type="submit" className="login-button">
+            <button disabled={loading} type="submit" className={s.loginButton}>
               Log In
             </button>
-            <div className="hr"></div>
+            <div className={s.hr}></div>
             <div className="fb">
               <div>Log in with Facebook</div>
             </div>
-            <div className="forgot-password">
+            <div className={s.forgotPassword}>
               <Link
                 to="/istekram/forgot-password"
                 style={{ textDecoration: "none", color: "black" }}
@@ -93,7 +91,7 @@ export default function Login() {
             </div>
           </form>
         </div>
-        <div className="login-bot">
+        <div className={s.loginBot}>
           Don't have an accout?
           <Link
             to="/istekram/signup"
@@ -107,9 +105,9 @@ export default function Login() {
             Sign up
           </Link>
         </div>
-        <div className="app-sec" style={{ height: "120px" }}>
+        <div className={s.appSec} style={{ height: "120px" }}>
           <p>Get the app.</p>
-          <div className="app-img">
+          <div className={s.appImg}>
             <img
               src={process.env.PUBLIC_URL + "/ios.png"}
               width="136px"

@@ -19,7 +19,6 @@ class UIStore {
   }
 
   posts: PostProps[] = [];
-
   setPosts = (posts: PostProps[]) => {
     this.posts = posts;
   };

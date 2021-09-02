@@ -41,9 +41,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostRouter = void 0;
 var express_1 = __importDefault(require("express"));
-var postSchema_1 = __importDefault(require("../../models/postSchema"));
+var postSchema_1 = require("../../models/postSchema");
 var multer_1 = __importDefault(require("multer"));
 var imgbb_1 = __importDefault(require("imgbb"));
+var nanoid_1 = require("nanoid");
 var fs = require("fs").promises;
 var router = express_1.default.Router();
 exports.PostRouter = router;
@@ -52,7 +53,7 @@ router.get("/api/posts", function (req, res) { return __awaiter(void 0, void 0, 
     var allPosts;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, postSchema_1.default.find().sort({ date: "desc" })];
+            case 0: return [4 /*yield*/, postSchema_1.Post.find().sort({ date: "desc" })];
             case 1:
                 allPosts = _a.sent();
                 return [2 /*return*/, res.send(allPosts)];
@@ -106,7 +107,7 @@ router.post("/api/post/create/customimg", upload.single("image"), function (req,
                 _f.label = 4;
             case 4:
                 _f.trys.push([4, 6, , 7]);
-                return [4 /*yield*/, postSchema_1.default.create({
+                return [4 /*yield*/, postSchema_1.Post.create({
                         username: body.username,
                         text: body.text,
                         image: imageUrl,
@@ -134,7 +135,7 @@ router.post("/api/post/create/", function (req, res) { return __awaiter(void 0, 
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, postSchema_1.default.create(req.body)];
+                return [4 /*yield*/, postSchema_1.Post.create(req.body)];
             case 1:
                 response = _a.sent();
                 return [3 /*break*/, 3];
@@ -157,10 +158,10 @@ router.post("/api/post/like", function (req, res) { return __awaiter(void 0, voi
         switch (_a.label) {
             case 0:
                 data = req.body;
-                return [4 /*yield*/, postSchema_1.default.findOne({ _id: data.postId }).exec()];
+                return [4 /*yield*/, postSchema_1.Post.findOne({ _id: data.postId }).exec()];
             case 1:
                 post = _a.sent();
-                return [4 /*yield*/, postSchema_1.default.findOneAndUpdate({
+                return [4 /*yield*/, postSchema_1.Post.findOneAndUpdate({
                         $and: [
                             { _id: data.postId },
                             { likes: { $elemMatch: { userID: data.userId } } },
@@ -173,7 +174,7 @@ router.post("/api/post/like", function (req, res) { return __awaiter(void 0, voi
             case 2:
                 isLiked = _a.sent();
                 if (!!isLiked) return [3 /*break*/, 4];
-                return [4 /*yield*/, postSchema_1.default.findOneAndUpdate({
+                return [4 /*yield*/, postSchema_1.Post.findOneAndUpdate({
                         $and: [
                             { _id: data.postId },
                             { likes: { $not: { $elemMatch: { userID: data.userId } } } },
@@ -190,6 +191,63 @@ router.post("/api/post/like", function (req, res) { return __awaiter(void 0, voi
                 if (isLiked)
                     return [2 /*return*/, res.send({ liked: false })];
                 return [2 /*return*/, res.send({ liked: true })];
+        }
+    });
+}); });
+router.post("/api/post/comment", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var data, post, post_1, comment, subcomment;
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                data = req.body;
+                return [4 /*yield*/, postSchema_1.Post.findOne({ _id: data.postId }).exec()];
+            case 1:
+                post = _b.sent();
+                if (!data.userId)
+                    return [2 /*return*/];
+                if (!(post && !data.isSub)) return [3 /*break*/, 3];
+                console.log("1");
+                return [4 /*yield*/, postSchema_1.Post.findOneAndUpdate({
+                        _id: data.postId,
+                    }, {
+                        $push: {
+                            comments: {
+                                comment: data.comment,
+                                comment_id: nanoid_1.nanoid(),
+                                username: data.username,
+                                user_id: data.userId,
+                            },
+                        },
+                    })
+                        .exec()
+                        .catch(function (e) {
+                        console.log(e);
+                    })];
+            case 2:
+                _b.sent();
+                return [3 /*break*/, 5];
+            case 3:
+                if (!(post && data.isSub)) return [3 /*break*/, 5];
+                console.log("2");
+                return [4 /*yield*/, postSchema_1.Post.findOne({
+                        _id: data.postId,
+                    })];
+            case 4:
+                post_1 = _b.sent();
+                comment = post_1.comments.find(function (e) { return e._id.toString() === data.parentCommentId; });
+                subcomment = {
+                    comment: data.comment,
+                    username: data.username,
+                    user_id: data.userId,
+                };
+                (_a = comment === null || comment === void 0 ? void 0 : comment.subcomment) === null || _a === void 0 ? void 0 : _a.push(subcomment);
+                post_1.save();
+                console.log(comment);
+                _b.label = 5;
+            case 5: 
+            //TODO
+            return [2 /*return*/, res.send("OK")];
         }
     });
 }); });

@@ -1,8 +1,17 @@
 import express, { Request, Response } from "express";
-import Post, { LikesDoc, PostDoc } from "../../models/postSchema";
+import {
+  CommentDoc,
+  LikesDoc,
+  PostDoc,
+  Post,
+  Comment,
+  SubCommentDoc,
+} from "../../models/postSchema";
 import multer from "multer";
 import axios from "axios";
 import ApiClient from "imgbb";
+import { nanoid } from "nanoid";
+
 const fs = require("fs").promises;
 
 const router = express.Router();
@@ -129,8 +138,74 @@ router.post("/api/post/like", async (req: Request, res: Response) => {
   }
   if (isLiked) return res.send({ liked: false });
   return res.send({ liked: true });
+});
+
+type Comments = {
+  isSub: boolean;
+  parentCommentId: string;
+  comment: string;
+  postId: string;
+  userId: string;
+  username: string;
+};
+
+router.post("/api/post/comment", async (req: Request, res: Response) => {
+  let data: Comments = req.body;
+  let post: PostDoc = await Post.findOne({ _id: data.postId }).exec();
+
+  if (!data.userId) return;
+
+  // console.log(data);
+
+  if (post && !data.isSub) {
+    console.log("1");
+
+    await Post.findOneAndUpdate(
+      {
+        _id: data.postId,
+      },
+      {
+        $push: {
+          comments: {
+            comment: data.comment,
+            comment_id: nanoid(),
+            username: data.username,
+            user_id: data.userId,
+          },
+        },
+      }
+    )
+      .exec()
+      .catch((e) => {
+        console.log(e);
+      });
+  } else if (post && data.isSub) {
+    console.log("2");
+
+    let post: PostDoc = await Post.findOne({
+      _id: data.postId,
+    });
+
+    let comment = post.comments.find(
+      (e) => e._id.toString() === data.parentCommentId
+    );
+
+    //@ts-ignore
+    let subcomment: SubCommentDoc = {
+      comment: data.comment,
+      username: data.username,
+      user_id: data.userId,
+    };
+
+    comment?.subcomment?.push(subcomment);
+
+    post.save();
+
+    console.log(comment);
+  }
 
   //TODO
+  return res.send("OK");
 });
 
 export { router as PostRouter };

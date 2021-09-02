@@ -114,7 +114,7 @@ const CreatePost = ({
         <>
           <div className={showUI ? `${s.uiWrapper}` : `${s.hidden}`}>
             <div className={s.uiMain}>
-              <form onSubmit={(e: any) => handleSubmit(e)}>
+              <form className={s.form} onSubmit={(e: any) => handleSubmit(e)}>
                 <div className={s.formRow}>
                   {isURL ? (
                     <>

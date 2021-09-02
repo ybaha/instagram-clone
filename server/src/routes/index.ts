@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import { PostRouter } from "./post";
-import Post from "../models/postSchema";
 
 const router = express.Router();
 

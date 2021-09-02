@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "./AuthContext";
 import { Link, useHistory } from "react-router-dom";
-import "./Signup.css";
+import s from "./Signup.module.scss";
 
 export default function Signup() {
   const emailRef = useRef<any>();
@@ -42,18 +42,18 @@ export default function Signup() {
   }
 
   return (
-    <div className="signup-wrapper">
-      <div className="signup">
+    <div className={s.signupWrapper}>
+      <div className={s.signup}>
         <img
           src={process.env.PUBLIC_URL + "/istekram.png"}
-          className="logo"
+          className={s.logo}
           alt="logo"
         ></img>
-        <div className="signup-text">
+        <div className={s.signupText}>
           Sign up to see photos and videos from your friends.
         </div>
         <button>Log in with Facebook</button>
-        <div className="hr"></div>
+        <div className={s.hr}></div>
         {error && <div>{error}</div>}
         <form onSubmit={handleSubmit}>
           <div id="email">
@@ -81,21 +81,21 @@ export default function Signup() {
           <button disabled={loading} type="submit">
             Sign Up
           </button>
-          <div className="policies">
+          <div className={s.policies}>
             By signing up, you agree to our Terms , Data Policy and Cookies
             Policy .
           </div>
         </form>
       </div>
-      <div className="signup-bot">
+      <div className={s.signupBot}>
         Have an account?{" "}
-        <Link to="/istekram/login" className="lgn-btn">
+        <Link to="/istekram/login" className={s.lgnBtn}>
           Log In
         </Link>
       </div>
-      <div className="app-sec" style={{ height: "120px", marginTop: "12px" }}>
+      <div className={s.appSec} style={{ height: "120px", marginTop: "12px" }}>
         <p>Get the app.</p>
-        <div className="app-img">
+        <div className={s.appImg}>
           <img
             src={process.env.PUBLIC_URL + "/ios.png"}
             width="136px"

@@ -92,3 +92,28 @@
     width: 100%;
   }
 }
+
+.commentBox {
+  & > form {
+  }
+  & > button {
+  }
+}
+
+.commentWrapper {
+  display: flex;
+  &:hover > .commentPopup {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.commentPopup {
+  display: none;
+  margin-left: 8px;
+}
+
+.commentsContainer {
+  max-height: 280px;
+  overflow-y: auto;
+}

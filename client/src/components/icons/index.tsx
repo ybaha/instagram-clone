@@ -23,3 +23,4 @@ export { ReactComponent as DDSaved } from "./dd-saved.svg";
 export { ReactComponent as DDSettings } from "./dd-settings.svg";
 export { ReactComponent as DDSwitch } from "./dd-switch.svg";
 export { ReactComponent as Add } from "./add.svg";
+export { ReactComponent as Subdir } from "./subdir.svg";
