@@ -152,17 +152,44 @@ router.post("/api/post/create/", function (req, res) { return __awaiter(void 0, 
     });
 }); });
 router.post("/api/post/like", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var data, post;
+    var data, post, isLiked;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 data = req.body;
-                return [4 /*yield*/, postSchema_1.default.find({ _id: data.postId })];
+                return [4 /*yield*/, postSchema_1.default.findOne({ _id: data.postId }).exec()];
             case 1:
                 post = _a.sent();
-                console.log(post);
-                console.log(data);
-                return [2 /*return*/];
+                return [4 /*yield*/, postSchema_1.default.findOneAndUpdate({
+                        $and: [
+                            { _id: data.postId },
+                            { likes: { $elemMatch: { userID: data.userId } } },
+                        ],
+                    }, { $pull: { likes: { userID: data.userId } } })
+                        .exec()
+                        .catch(function (e) {
+                        console.log(e);
+                    })];
+            case 2:
+                isLiked = _a.sent();
+                if (!!isLiked) return [3 /*break*/, 4];
+                return [4 /*yield*/, postSchema_1.default.findOneAndUpdate({
+                        $and: [
+                            { _id: data.postId },
+                            { likes: { $not: { $elemMatch: { userID: data.userId } } } },
+                        ],
+                    }, { $addToSet: { likes: { userID: data.userId } } })
+                        .exec()
+                        .catch(function (e) {
+                        console.log(e);
+                    })];
+            case 3:
+                _a.sent();
+                _a.label = 4;
+            case 4:
+                if (isLiked)
+                    return [2 /*return*/, res.send({ liked: false })];
+                return [2 /*return*/, res.send({ liked: true })];
         }
     });
 }); });

@@ -9,7 +9,7 @@ var likesSchema = new mongoose_1.default.Schema({
 });
 var postCommentsSchema = new mongoose_1.default.Schema({
     comment: String,
-    likes: { type: [likesSchema], default: [] },
+    likes: { type: [likesSchema] },
     username: String,
 });
 var getDate = function () {
@@ -20,7 +20,7 @@ var postSchema = new mongoose_1.default.Schema({
     comments: { type: [postCommentsSchema], default: [] },
     date: { type: Number, default: getDate },
     image: String,
-    likes: { type: [likesSchema], default: [] },
+    likes: { type: [likesSchema] },
     liked: { type: Boolean, default: false },
     text: String,
     userPicture: { type: String, default: "default" },
