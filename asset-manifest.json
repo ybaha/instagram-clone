@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/istekram/static/css/main.33b1b9c7.chunk.css",
-    "main.js": "/istekram/static/js/main.bafe77b2.chunk.js",
-    "main.js.map": "/istekram/static/js/main.bafe77b2.chunk.js.map",
+    "main.js": "/istekram/static/js/main.868bb8e9.chunk.js",
+    "main.js.map": "/istekram/static/js/main.868bb8e9.chunk.js.map",
     "runtime-main.js": "/istekram/static/js/runtime-main.0be4bf57.js",
     "runtime-main.js.map": "/istekram/static/js/runtime-main.0be4bf57.js.map",
     "static/js/2.1963e5a3.chunk.js": "/istekram/static/js/2.1963e5a3.chunk.js",
@@ -37,12 +37,13 @@
     "static/media/search.febc8c9f.svg": "/istekram/static/media/search.febc8c9f.svg",
     "static/media/setting.fd439d63.svg": "/istekram/static/media/setting.fd439d63.svg",
     "static/media/subdir.0e812611.svg": "/istekram/static/media/subdir.0e812611.svg",
-    "static/media/tag.6c93a3c5.svg": "/istekram/static/media/tag.6c93a3c5.svg"
+    "static/media/tag.6c93a3c5.svg": "/istekram/static/media/tag.6c93a3c5.svg",
+    "static/media/verified.5e8c1595.svg": "/istekram/static/media/verified.5e8c1595.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.0be4bf57.js",
     "static/js/2.1963e5a3.chunk.js",
     "static/css/main.33b1b9c7.chunk.css",
-    "static/js/main.bafe77b2.chunk.js"
+    "static/js/main.868bb8e9.chunk.js"
   ]
 }
