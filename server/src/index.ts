@@ -12,9 +12,9 @@ const app = express();
 let mongooseURL =
   "mongodb+srv://baha:" + pw + "@cluster0.x0mow.mongodb.net/istekram";
 
-if (process.env.NODE_ENV === "dev") {
+if (process.env.NODE_ENV === "dev")
   mongooseURL = "mongodb://localhost/istekram";
-}
+else console.log = () => {};
 
 console.log(mongooseURL);
 console.log(process.env.NODE_ENV);

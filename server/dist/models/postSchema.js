@@ -1,44 +1,40 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Comment = exports.Post = void 0;
-var mongoose_1 = __importDefault(require("mongoose"));
+exports.Post = void 0;
+var ts_mongoose_1 = require("ts-mongoose");
 var getDate = function () {
     var date = new Date();
     return date.getTime();
 };
-var likesSchema = new mongoose_1.default.Schema({
-    userID: String,
+var likesSchema = ts_mongoose_1.createSchema({
+    userID: ts_mongoose_1.Type.string({ required: true, unique: true }),
 });
-var subCommentsSchema = new mongoose_1.default.Schema({
-    comment: String,
-    date: { type: Number, default: getDate },
-    likes: { type: [likesSchema], default: [] },
-    username: String,
-    user_id: String,
+var subCommentsSchema = ts_mongoose_1.createSchema({
+    comment: ts_mongoose_1.Type.string({ required: true }),
+    date: ts_mongoose_1.Type.number({ default: getDate, required: true }),
+    likes: ts_mongoose_1.Type.array().of(likesSchema),
+    username: ts_mongoose_1.Type.string({ required: true }),
+    user_id: ts_mongoose_1.Type.string({ required: true }),
 });
-var commentsSchema = new mongoose_1.default.Schema({
-    comment: String,
-    comment_id: String,
-    subcomment: { type: [subCommentsSchema], default: [] },
-    likes: { type: [likesSchema], default: [] },
-    username: String,
-    date: { type: Number, default: getDate, required: false },
-    user_id: String,
+var commentsSchema = ts_mongoose_1.createSchema({
+    comment: ts_mongoose_1.Type.string({ required: true }),
+    comment_id: ts_mongoose_1.Type.string({ required: true }),
+    subcomment: ts_mongoose_1.Type.array().of(subCommentsSchema),
+    likes: ts_mongoose_1.Type.array().of(likesSchema),
+    username: ts_mongoose_1.Type.string({ required: true }),
+    date: ts_mongoose_1.Type.number({ default: getDate, required: true }),
+    user_id: ts_mongoose_1.Type.string({ required: true }),
 });
-var postSchema = new mongoose_1.default.Schema({
-    comments: { type: [commentsSchema], default: [] },
-    date: { type: Number, default: getDate },
-    image: String,
-    likes: { type: [likesSchema], default: [] },
-    liked: { type: Boolean, default: false },
-    text: String,
-    userPicture: { type: String, default: "default" },
-    username: String,
+var postSchema = ts_mongoose_1.createSchema({
+    comments: ts_mongoose_1.Type.array().of(commentsSchema),
+    date: ts_mongoose_1.Type.number({ default: getDate, required: true }),
+    image: ts_mongoose_1.Type.string({ required: true }),
+    likes: ts_mongoose_1.Type.array().of(likesSchema),
+    liked: ts_mongoose_1.Type.boolean(),
+    text: ts_mongoose_1.Type.string(),
+    userPicture: ts_mongoose_1.Type.string({ default: "default" }),
+    username: ts_mongoose_1.Type.string({ required: true }),
+    user_id: ts_mongoose_1.Type.string({ required: true }),
 });
-var Post = mongoose_1.default.model("Post", postSchema);
-exports.Post = Post;
-var Comment = mongoose_1.default.model("Comment", commentsSchema);
-exports.Comment = Comment;
+exports.Post = ts_mongoose_1.typedModel("Post", postSchema);
+// export const Comment = mongoose.model("Comment", commentsSchema);

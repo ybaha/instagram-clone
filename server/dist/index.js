@@ -13,9 +13,10 @@ var pw_1 = require("./pw");
 exports.port = process.env.PORT || 5000;
 var app = express_1.default();
 var mongooseURL = "mongodb+srv://baha:" + pw_1.pw + "@cluster0.x0mow.mongodb.net/istekram";
-if (process.env.NODE_ENV === "dev") {
+if (process.env.NODE_ENV === "dev")
     mongooseURL = "mongodb://localhost/istekram";
-}
+else
+    console.log = function () { };
 console.log(mongooseURL);
 console.log(process.env.NODE_ENV);
 mongoose_1.default.connect(mongooseURL);

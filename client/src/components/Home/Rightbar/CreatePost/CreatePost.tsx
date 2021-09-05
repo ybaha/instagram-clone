@@ -21,7 +21,7 @@ const CreatePost = ({
   const [alert, setAlert] = React.useState("");
   const [isURL, setIsURL] = React.useState(true);
   const { setPosts, showUI, setShowUI } = useStore();
-  const { getCurrentUsername } = useAuth();
+  const { getCurrentUsername, currentUser } = useAuth();
   const imgUrlRef: any = React.useRef();
   const imgTextRef: any = React.useRef();
 
@@ -55,6 +55,7 @@ const CreatePost = ({
     let text = imgTextRef?.current?.value;
     imgObj.append("image", uploadedImage.raw);
     imgObj.append("username", username);
+    imgObj.append("user_id", currentUser!.uid);
     imgObj.append("text", text);
 
     if (!username) setAlert("network error");
@@ -71,12 +72,14 @@ const CreatePost = ({
         image,
         text,
         username,
+        user_id: currentUser!.uid,
       };
     } else {
       data = imgObj;
     }
 
-    console.log(data);
+    console.log(`asd`);
+    console.log(imgObj.get("user_id"));
     let url = isURL
       ? process.env.REACT_APP_SERVER! + "api/post/create"
       : process.env.REACT_APP_SERVER! + "api/post/create/customimg";

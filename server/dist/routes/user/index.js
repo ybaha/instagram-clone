@@ -3,9 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.router = void 0;
+exports.PostRouter = void 0;
 var express_1 = __importDefault(require("express"));
-var post_1 = require("./post");
+var user_1 = require("../../controllers/user");
+var utils_1 = require("../../utils");
 var router = express_1.default.Router();
-exports.router = router;
-router.use(post_1.PostRouter);
+exports.PostRouter = router;
+router.post("/api/user/create", utils_1.u.single("image"), user_1.createUser);

@@ -35,33 +35,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PostRouter = void 0;
-var express_1 = __importDefault(require("express"));
-var postSchema_1 = require("../../models/postSchema");
-var post_1 = require("../../controllers/post");
-var utils_1 = require("../../utils");
-var router = express_1.default.Router();
-exports.PostRouter = router;
-// GET ALL POSTS
-router.get("/api/posts", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var allPosts;
+exports.createUser = void 0;
+var fs_1 = require("fs");
+var readFile = fs_1.promises.readFile, writeFile = fs_1.promises.writeFile;
+var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, postSchema_1.Post.find().sort({ date: "desc" })];
-            case 1:
-                allPosts = _a.sent();
-                return [2 /*return*/, res.send(allPosts)];
+        try {
+            // await User.create({})
         }
+        catch (_b) { }
+        return [2 /*return*/, ""];
     });
-}); });
-// CREATE A POST
-router.post("/api/post/create/customimg", utils_1.u.single("image"), post_1.createUniquePost);
-router.post("/api/post/create/", post_1.createPost);
-// LIKE POST
-router.post("/api/post/like", post_1.likePost);
-// COMMENT ON POST
-router.post("/api/post/comment", post_1.commentOnPost);
+}); };
+exports.createUser = createUser;

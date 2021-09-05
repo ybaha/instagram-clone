@@ -85,7 +85,10 @@ const Post: React.FC<Props> = ({
             {" " + comment.comment}
           </div>
           <div className={s.commentPopup}>
-            <Comment style={{ width: "12px", cursor: "pointer" }} />
+            <Comment
+              style={{ width: "12px", cursor: "pointer" }}
+              onClick={(e) => sendSubComment(e, comment, "Selan")}
+            />
           </div>
           {/* <form
             className={s.subCommentForm}
@@ -147,13 +150,17 @@ const Post: React.FC<Props> = ({
     console.log(res);
   };
 
-  const sendSubComment = async (e: any, comment: CommentProps) => {
+  const sendSubComment = async (
+    e: any,
+    comment: CommentProps,
+    text: string
+  ) => {
     e.preventDefault();
     let res = await axios.post(
       process.env.REACT_APP_SERVER + "api/post/comment",
       {
         isSub: true,
-        comment: comment.comment,
+        comment: text,
         postId: id,
         userId: currentUser?.uid,
         username: currentUsername,

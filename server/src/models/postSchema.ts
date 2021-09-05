@@ -1,76 +1,47 @@
 import mongoose from "mongoose";
+import { createSchema, ExtractDoc, Type, typedModel } from "ts-mongoose";
 
 const getDate = () => {
   let date = new Date();
   return date.getTime();
 };
-export interface CommentDoc extends mongoose.Document {
-  comment: String;
-  comment_id: String;
-  subcomment?: SubCommentDoc[];
-  likes?: LikesDoc[];
-  username: String;
-  date?: number;
-  user_id: String;
-}
 
-export interface SubCommentDoc extends mongoose.Document {
-  username: String;
-  comment: String;
-  date?: number;
-  likes?: LikesDoc[];
-  user_id: String;
-}
-
-export interface LikesDoc extends mongoose.Document {
-  userID: String;
-}
-
-export interface PostDoc extends mongoose.Document {
-  comments: CommentDoc[];
-  date: number;
-  image: string;
-  likes: LikesDoc[];
-  liked: boolean;
-  text: string;
-  userPicture: string;
-  username: string;
-}
-
-const likesSchema = new mongoose.Schema<LikesDoc>({
-  userID: String,
+const likesSchema = createSchema({
+  userID: Type.string({ required: true, unique: true }),
 });
 
-const subCommentsSchema = new mongoose.Schema<SubCommentDoc>({
-  comment: String,
-  date: { type: Number, default: getDate },
-  likes: { type: [likesSchema], default: [] },
-  username: String,
-  user_id: String,
+const subCommentsSchema = createSchema({
+  comment: Type.string({ required: true }),
+  date: Type.number({ default: getDate, required: true }),
+  likes: Type.array().of(likesSchema),
+  username: Type.string({ required: true }),
+  user_id: Type.string({ required: true }),
 });
 
-const commentsSchema = new mongoose.Schema<CommentDoc>({
-  comment: String,
-  comment_id: String,
-  subcomment: { type: [subCommentsSchema], default: [] },
-  likes: { type: [likesSchema], default: [] },
-  username: String,
-  date: { type: Number, default: getDate, required: false },
-  user_id: String,
+const commentsSchema = createSchema({
+  comment: Type.string({ required: true }),
+  comment_id: Type.string({ required: true }),
+  subcomment: Type.array().of(subCommentsSchema),
+  likes: Type.array().of(likesSchema),
+  username: Type.string({ required: true }),
+  date: Type.number({ default: getDate, required: true }),
+  user_id: Type.string({ required: true }),
 });
 
-const postSchema = new mongoose.Schema<PostDoc>({
-  comments: { type: [commentsSchema], default: [] },
-  date: { type: Number, default: getDate },
-  image: String,
-  likes: { type: [likesSchema], default: [] },
-  liked: { type: Boolean, default: false },
-  text: String,
-  userPicture: { type: String, default: "default" },
-  username: String,
+const postSchema = createSchema({
+  comments: Type.array().of(commentsSchema),
+  date: Type.number({ default: getDate, required: true }),
+  image: Type.string({ required: true }),
+  likes: Type.array().of(likesSchema),
+  liked: Type.boolean(),
+  text: Type.string(),
+  userPicture: Type.string({ default: "default" }),
+  username: Type.string({ required: true }),
+  user_id: Type.string({ required: true }),
 });
 
-const Post = mongoose.model("Post", postSchema);
-const Comment = mongoose.model("Comment", commentsSchema);
+export const Post = typedModel("Post", postSchema);
+export type PostDoc = ExtractDoc<typeof postSchema>;
+export type CommentDoc = ExtractDoc<typeof commentsSchema>;
 
-export { Post, Comment };
+// export const Comment = mongoose.model("Comment", commentsSchema);
