@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { auth } from "./firebase";
 import firebase from "firebase/app";
+import axios from "axios";
 
 type ContextProps = {
   currentUser: firebase.User | null | undefined;
@@ -12,7 +13,8 @@ type ContextProps = {
   signup: (
     email: string,
     password: string,
-    username: string
+    username: string,
+    real_name: string
   ) => Promise<{ message: string }>;
   logout: () => Promise<void>;
   resetPassword: (email: string) => Promise<void>;
@@ -39,25 +41,49 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     undefined
   );
 
-  async function signup(email: string, password: string, username: string) {
-    let o = { message: "" };
+  async function signup(
+    email: string,
+    password: string,
+    username: string,
+    real_name: string
+  ) {
+    let o;
     try {
       await auth.createUserWithEmailAndPassword(email, password);
-      !currentUser?.uid && console.log(`current user yok`);
+      setTimeout(() => {}, 1000);
+      if (!firebase.auth().currentUser?.uid) {
+        console.log("currentuser yok");
+        return;
+      }
       firebase
         .database()
         .ref("users/" + firebase.auth().currentUser?.uid)
         .set({
           username: username,
         });
-      let res;
+      console.log(firebase.auth().currentUser?.uid);
+      let res = await axios.post(
+        process.env.REACT_APP_SERVER + "api/user/create",
+        {
+          uid: firebase.auth().currentUser?.uid,
+          username: username,
+          profile_picture: "",
+          real_name: real_name,
+          website: "",
+          bio: "",
+          email: email,
+          following: [],
+          posts: [],
+        }
+      );
+      console.log(res.data);
       var usersRef = firebase.database().ref("users/" + currentUser!.uid);
       usersRef.on("value", (snapshot) => {
         res = snapshot.val();
         console.log(res);
       });
-    } catch (e) {
-      o = e;
+    } catch (e: any) {
+      if (e && e.message) o = e;
     } finally {
       return o;
     }
@@ -94,7 +120,6 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
     usersRef.on("value", (snapshot) => {
       if (snapshot.exists()) {
         res = snapshot.val();
-
         setCurrentUsername(res?.username);
       }
     });

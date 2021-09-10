@@ -234,7 +234,7 @@ const Post: React.FC<Props> = ({
           <span style={{ marginRight: "6px" }} className={s.bold}>
             {username}
           </span>
-          {text}
+          {text ? text : ""}
         </div>
         {!!comments?.length && (
           <div style={{ marginBottom: "8px" }}>{displayComments()}</div>

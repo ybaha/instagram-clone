@@ -5,6 +5,7 @@ import NavbarTop from "./Navbar/Navbar";
 import Footer from "./Footer/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useAuth } from "../Firebase/AuthContext";
+import Profile from "./Profile";
 
 const App: React.FC = () => {
   const { getCurrentUsername } = useAuth();
@@ -28,6 +29,7 @@ const App: React.FC = () => {
         <Switch>
           <Route exact path="/istekram" component={HomeComponent} />
           <Route path="/istekram/direct/inbox" component={Direct} />
+          <Route path="/istekram/:username" component={Profile} />
         </Switch>
       </Router>
     </div>

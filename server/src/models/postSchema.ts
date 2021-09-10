@@ -7,13 +7,13 @@ const getDate = () => {
 };
 
 const likesSchema = createSchema({
-  userID: Type.string({ required: true, unique: true }),
+  user_id: Type.string({ required: true, unique: true }),
 });
 
 const subCommentsSchema = createSchema({
   comment: Type.string({ required: true }),
   date: Type.number({ default: getDate, required: true }),
-  likes: Type.array().of(likesSchema),
+  likes: Type.array({ default: [] }).of(likesSchema),
   username: Type.string({ required: true }),
   user_id: Type.string({ required: true }),
 });

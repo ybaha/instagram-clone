@@ -1,32 +1,19 @@
 import { Request, Response } from "express";
 import { CommentDoc, Post } from "../models/postSchema";
-import ApiClient from "imgbb";
-import { promises } from "fs";
 import { nanoid } from "nanoid";
 import mongoose from "mongoose";
-
-const { readFile } = promises;
-let key = "a1e4a333e66c1b8d5163332ba42cd473";
+import { uploadPhoto } from "../utils";
+import { User } from "../models/userSchema";
 
 export const createUniquePost = async (req: Request, res: Response) => {
   let body = req.body;
   let file = req.file!;
   let date = Date.now();
-  let name = body.username + "_" + date;
 
-  let api = new ApiClient({
-    token: key,
-  });
-  let bbres: any = await api
-    .upload({
-      name: name,
-      image: await readFile(file.path),
-    })
-    .catch((e) => console.log(e));
-
-  let imageUrl = bbres.data?.image?.url;
+  let imageUrl = await uploadPhoto(body.username, file.path, date);
 
   let response: any;
+  console.log("asd");
   try {
     response = await Post.create({
       username: body.username,
@@ -35,6 +22,17 @@ export const createUniquePost = async (req: Request, res: Response) => {
       image: imageUrl,
       date: date,
     });
+    console.log(response);
+    console.log("dsa");
+
+    console.log(response.post_id);
+    await User.findOneAndUpdate(
+      {
+        uid: body.uid,
+      },
+      { $addToSet: { posts: { post_id: response.post_id } } }
+    ).exec();
+
     console.log("Created new post -> ", response._id);
   } catch (err) {
     console.log(err);
@@ -71,10 +69,10 @@ export const likePost = async (req: Request, res: Response) => {
     {
       $and: [
         { _id: data.postId },
-        { likes: { $elemMatch: { userID: data.userId } } },
+        { likes: { $elemMatch: { user_id: data.userId } } },
       ],
     },
-    { $pull: { likes: { userID: data.userId } } }
+    { $pull: { likes: { user_id: data.userId } } }
   )
     .exec()
     .catch((e) => {
@@ -86,10 +84,10 @@ export const likePost = async (req: Request, res: Response) => {
       {
         $and: [
           { _id: data.postId },
-          { likes: { $not: { $elemMatch: { userID: data.userId } } } },
+          { likes: { $not: { $elemMatch: { v: data.userId } } } },
         ],
       },
-      { $addToSet: { likes: { userID: data.userId } } }
+      { $addToSet: { likes: { user_id: data.userId } } }
     )
       .exec()
       .catch((e) => {
@@ -150,7 +148,11 @@ export const commentOnPost = async (req: Request, res: Response) => {
         "comments._id": parentObjectID,
       },
       { $push: { "comments.$.subcomment": subcomment } }
-    ).exec();
+    )
+      .exec()
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   return res.send(response);

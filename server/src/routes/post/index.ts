@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import { Post } from "../../models/postSchema";
-import multer from "multer";
 import {
   commentOnPost,
   createPost,

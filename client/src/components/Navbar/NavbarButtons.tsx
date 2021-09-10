@@ -17,6 +17,7 @@ import {
 } from "../icons";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
+import axios from "axios";
 
 const NavbarButtons: React.FC<{
   button?: any;
@@ -78,7 +79,25 @@ const NavbarButtons: React.FC<{
         <Explore />
       </div>
       <div className="navbar-btns">
-        <Like />
+        <Like
+          onClick={async () => {
+            let res = await axios.post(
+              process.env.REACT_APP_SERVER + "api/user/create",
+              {
+                uid: "H3ji7gRGlahwM4cvmkcxdpBZkwC2",
+                username: "emirmmustafa",
+                profile_picture: "",
+                real_name: "",
+                website: "",
+                bio: "",
+                email: "hek@hek.co",
+                following: [],
+                posts: [],
+              }
+            );
+            console.log(res.data);
+          }}
+        />
       </div>
       <div
         className="navbar-btns"

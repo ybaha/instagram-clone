@@ -7,6 +7,7 @@ export default function Signup() {
   const emailRef = useRef<any>();
   const passwordRef = useRef<any>();
   const usernameRef = useRef<any>();
+  const fullNameRef = useRef<any>();
   const passwordConfirmRef = useRef<any>();
   const { signup } = useAuth();
   const [error, setError] = useState("");
@@ -21,13 +22,15 @@ export default function Signup() {
       if (
         !emailRef.current.value.length ||
         !passwordRef.current.value.length ||
-        !usernameRef.current.value.length
+        !usernameRef.current.value.length ||
+        !fullNameRef.current.value.length
       )
         return;
       let obj = await signup(
         emailRef.current.value,
         passwordRef.current.value,
-        usernameRef.current.value
+        usernameRef.current.value,
+        fullNameRef.current.value
       );
       if (obj.message) {
         setError(obj.message);
@@ -60,7 +63,12 @@ export default function Signup() {
             <input type="email" ref={emailRef} placeholder="Email" required />
           </div>
           <div id="full-name">
-            <input type="text" placeholder="Full name" required />
+            <input
+              type="text"
+              ref={fullNameRef}
+              placeholder="Full name"
+              required
+            />
           </div>
           <div id="username">
             <input

@@ -7,11 +7,12 @@ import ForgotPassword from "./ForgotPassword";
 import Signup from "./Signup";
 
 import { useAuth } from "./AuthContext";
+import { Profile } from "../components/icons";
 
 const Router: React.FC = () => {
   const { currentUser } = useAuth();
 
-  const NoMatch: React.FC<{ text: string }> = (text) => {
+  const NoMatch: React.FC<{ text: string }> = ({ text }) => {
     return <h1>No Match {text}</h1>;
   };
 
@@ -27,10 +28,11 @@ const Router: React.FC = () => {
   const AuthRoutes = () => {
     return (
       <Switch>
-        <Route exact path="/istekram" component={Login} />
+        <PrivateRoute exact path="/istekram" component={Login} />
         <Route path="/istekram/login" component={Login} />
         <Route path="/istekram/signup" component={Signup} />
         <Route path="/istekram/forgot-password" component={ForgotPassword} />
+        <PrivateRoute path="/istekram/" component={Profile} />
         <Route render={() => <NoMatch text={"Auth Routes"} />} />
       </Switch>
     );
