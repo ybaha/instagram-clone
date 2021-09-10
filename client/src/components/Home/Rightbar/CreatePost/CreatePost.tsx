@@ -78,7 +78,6 @@ const CreatePost = ({
       data = imgObj;
     }
 
-    console.log(`asd`);
     console.log(imgObj.get("user_id"));
     let url = isURL
       ? process.env.REACT_APP_SERVER! + "api/post/create"

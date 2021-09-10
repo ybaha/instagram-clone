@@ -7,16 +7,35 @@ type PostProps = {
   image: string;
   text: string;
   liked: boolean;
-  likes: { userID: string }[];
+  likes: { user_id: string }[];
   comments?: [];
   date: number;
   _id: string;
+};
+
+type UserProps = {
+  _id: string;
+  uid: string;
+  username: string;
+  profile_picture: string;
+  real_name: string;
+  website: string;
+  bio: string;
+  email: string;
+  following: [];
+  posts: [];
 };
 
 class UIStore {
   constructor() {
     makeAutoObservable(this);
   }
+
+  currentUserData = {} as UserProps;
+
+  setCurrentUserData = (data: UserProps) => {
+    this.currentUserData = data;
+  };
 
   posts: PostProps[] = [];
   setPosts = (posts: PostProps[]) => {

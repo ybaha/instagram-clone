@@ -16,7 +16,7 @@ type Props = {
   image?: string;
   text: string;
   liked: boolean;
-  likes: { userID: string }[];
+  likes: { user_id: string }[];
   comments?: CommentProps[];
   date: number;
 };
@@ -26,7 +26,7 @@ type SubCommentProps = {
   username: String;
   comment: String;
   date?: number;
-  likes?: { userID: string }[];
+  likes?: { user_id: string }[];
   user_id: string;
 };
 
@@ -34,7 +34,7 @@ type CommentProps = {
   _id: string;
   comment: string;
   subcomment?: SubCommentProps[];
-  likes?: { userID: string }[];
+  likes?: { user_id: string }[];
   username: string;
   date?: number;
   user_id: String;
@@ -61,8 +61,6 @@ const Post: React.FC<Props> = ({
   const commentRef: any = React.useRef();
 
   const currentUsername = getCurrentUsername();
-
-  console.log(comments);
 
   if (!image?.length) {
     image = postImage;
@@ -127,7 +125,7 @@ const Post: React.FC<Props> = ({
       process.env.REACT_APP_SERVER + "api/post/like/",
       {
         username: currentUsername,
-        userId: currentUser?.uid,
+        user_id: currentUser?.uid,
         postId: id,
       }
     );
@@ -143,7 +141,7 @@ const Post: React.FC<Props> = ({
         isSub: false,
         comment: commentRef.current?.value,
         postId: id,
-        userId: currentUser?.uid,
+        user_id: currentUser?.uid,
         username: currentUsername,
       }
     );
@@ -162,7 +160,7 @@ const Post: React.FC<Props> = ({
         isSub: true,
         comment: text,
         postId: id,
-        userId: currentUser?.uid,
+        user_id: currentUser?.uid,
         username: currentUsername,
         parentCommentId: comment._id,
       }
@@ -171,7 +169,7 @@ const Post: React.FC<Props> = ({
   };
 
   React.useEffect(() => {
-    if (likes.some((el) => el.userID === currentUser?.uid)) setLiked(true);
+    if (likes.some((el) => el.user_id === currentUser?.uid)) setLiked(true);
     else setLiked(false);
   }, [posts]);
 

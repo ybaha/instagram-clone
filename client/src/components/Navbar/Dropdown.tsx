@@ -1,9 +1,11 @@
 import React from "react";
 import { DDProfile, DDSaved, DDSettings, DDSwitch } from "../icons";
 import { useAuth } from "../../Firebase/AuthContext";
+import { useHistory } from "react-router-dom";
 
 export default function Dropdown() {
-  const { logout } = useAuth();
+  const { logout, getCurrentUsername } = useAuth();
+  const history = useHistory();
 
   return (
     <div
@@ -19,7 +21,12 @@ export default function Dropdown() {
         borderRadius: "10px",
       }}
     >
-      <div className="dd-item">
+      <div
+        className="dd-item"
+        onClick={() => {
+          history.push("/istekram/" + getCurrentUsername());
+        }}
+      >
         <DDProfile />
         Profil
       </div>

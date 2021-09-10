@@ -10,6 +10,7 @@ import CreatePost from "./Rightbar/CreatePost/CreatePost";
 import { useStore } from "../../store/UIStore";
 import { observer } from "mobx-react-lite";
 import { useInterval } from "../../utils/useInterval";
+import { useAuth } from "../../Firebase/AuthContext";
 
 const Page: React.FC = () => {
   const { posts, setPosts, showUI } = useStore();

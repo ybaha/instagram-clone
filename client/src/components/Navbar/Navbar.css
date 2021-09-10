@@ -9,7 +9,6 @@
   min-width: 100vw;
   width: 100vw;
   display: block;
-  margin-bottom: 100px;
 }
 
 .navbar-container {
@@ -22,6 +21,7 @@
   justify-content: space-between;
   margin: 0 auto;
   height: 53px;
+  border-bottom: 1px solid lightgray;
 }
 
 .navbar-btns-sec {
