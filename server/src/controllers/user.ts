@@ -46,6 +46,11 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
+export const getAllUsers = async (req: Request, res: Response) => {
+  let users = User.find()
+  res.send(users)
+};
+
 export const getUser = async (req: Request, res: Response) => {
   let user = await User.findOne({ username: req.params.username });
   res.send(user);

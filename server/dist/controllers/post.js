@@ -41,41 +41,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.commentOnPost = exports.likePost = exports.createPost = exports.createUniquePost = void 0;
 var postSchema_1 = require("../models/postSchema");
-var imgbb_1 = __importDefault(require("imgbb"));
-var fs_1 = require("fs");
 var nanoid_1 = require("nanoid");
 var mongoose_1 = __importDefault(require("mongoose"));
-var readFile = fs_1.promises.readFile;
-var key = "a1e4a333e66c1b8d5163332ba42cd473";
+var utils_1 = require("../utils");
+var userSchema_1 = require("../models/userSchema");
 var createUniquePost = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var body, file, date, name, api, bbres, _a, _b, imageUrl, response, err_1;
-    var _c;
-    var _d, _e;
-    return __generator(this, function (_f) {
-        switch (_f.label) {
+    var body, file, date, imageUrl, response, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
             case 0:
                 body = req.body;
                 file = req.file;
                 date = Date.now();
-                name = body.username + "_" + date;
-                api = new imgbb_1.default({
-                    token: key,
-                });
-                _b = (_a = api)
-                    .upload;
-                _c = {
-                    name: name
-                };
-                return [4 /*yield*/, readFile(file.path)];
-            case 1: return [4 /*yield*/, _b.apply(_a, [(_c.image = _f.sent(),
-                        _c)])
-                    .catch(function (e) { return console.log(e); })];
+                return [4 /*yield*/, (0, utils_1.uploadPhoto)(body.username, file.path, date)];
+            case 1:
+                imageUrl = _a.sent();
+                _a.label = 2;
             case 2:
-                bbres = _f.sent();
-                imageUrl = (_e = (_d = bbres.data) === null || _d === void 0 ? void 0 : _d.image) === null || _e === void 0 ? void 0 : _e.url;
-                _f.label = 3;
-            case 3:
-                _f.trys.push([3, 5, , 6]);
+                _a.trys.push([2, 5, , 6]);
                 return [4 /*yield*/, postSchema_1.Post.create({
                         username: body.username,
                         user_id: body.user_id,
@@ -83,12 +66,19 @@ var createUniquePost = function (req, res) { return __awaiter(void 0, void 0, vo
                         image: imageUrl,
                         date: date,
                     })];
+            case 3:
+                response = _a.sent();
+                console.log(response);
+                console.log(response._id);
+                return [4 /*yield*/, userSchema_1.User.findOneAndUpdate({
+                        uid: body.uid,
+                    }, { $addToSet: { posts: { post_id: response._id } } }).exec()];
             case 4:
-                response = _f.sent();
+                _a.sent();
                 console.log("Created new post -> ", response._id);
                 return [3 /*break*/, 6];
             case 5:
-                err_1 = _f.sent();
+                err_1 = _a.sent();
                 console.log(err_1);
                 return [3 /*break*/, 6];
             case 6:
@@ -137,9 +127,9 @@ var likePost = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, postSchema_1.Post.findOneAndUpdate({
                         $and: [
                             { _id: data.postId },
-                            { likes: { $elemMatch: { userID: data.userId } } },
+                            { likes: { $elemMatch: { user_id: data.user_id } } },
                         ],
-                    }, { $pull: { likes: { userID: data.userId } } })
+                    }, { $pull: { likes: { user_id: data.user_id } } })
                         .exec()
                         .catch(function (e) {
                         console.log(e);
@@ -150,9 +140,9 @@ var likePost = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, postSchema_1.Post.findOneAndUpdate({
                         $and: [
                             { _id: data.postId },
-                            { likes: { $not: { $elemMatch: { userID: data.userId } } } },
+                            { likes: { $not: { $elemMatch: { v: data.user_id } } } },
                         ],
-                    }, { $addToSet: { likes: { userID: data.userId } } })
+                    }, { $addToSet: { likes: { user_id: data.user_id } } })
                         .exec()
                         .catch(function (e) {
                         console.log(e);
@@ -177,16 +167,16 @@ var commentOnPost = function (req, res) { return __awaiter(void 0, void 0, void 
                 return [4 /*yield*/, postSchema_1.Post.findOne({ _id: data.postId }).exec()];
             case 1:
                 post = _a.sent();
-                if (!data.userId)
+                if (!data.user_id)
                     return [2 /*return*/];
                 if (!(post && !data.isSub)) return [3 /*break*/, 3];
                 return [4 /*yield*/, postSchema_1.Post.findOneAndUpdate({ _id: data.postId }, {
                         $push: {
                             comments: {
                                 comment: data.comment,
-                                comment_id: nanoid_1.nanoid(),
+                                comment_id: (0, nanoid_1.nanoid)(),
                                 username: data.username,
-                                user_id: data.userId,
+                                user_id: data.user_id,
                             },
                         },
                     })
@@ -203,12 +193,17 @@ var commentOnPost = function (req, res) { return __awaiter(void 0, void 0, void 
                 subcomment = {
                     comment: data.comment,
                     username: data.username,
-                    user_id: data.userId,
+                    user_id: data.user_id,
                 };
+                console.log(subcomment);
                 return [4 /*yield*/, postSchema_1.Post.findOneAndUpdate({
                         _id: data.postId,
                         "comments._id": parentObjectID,
-                    }, { $push: { "comments.$.subcomment": subcomment } }).exec()];
+                    }, { $push: { "comments.$.subcomment": subcomment } })
+                        .exec()
+                        .catch(function (e) {
+                        console.log(e);
+                    })];
             case 4:
                 response = _a.sent();
                 _a.label = 5;

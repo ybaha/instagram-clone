@@ -12,7 +12,7 @@ const router = express.Router();
 
 // GET ALL POSTS
 router.get("/api/posts", async (req: Request, res: Response) => {
-  let allPosts = await Post.find().sort({ date: "desc" });
+  let allPosts = await Post.find().sort({ date: "desc" });  
   return res.send(allPosts);
 });
 

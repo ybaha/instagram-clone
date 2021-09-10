@@ -36,16 +36,92 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUser = void 0;
+exports.getUser = exports.getAllUsers = exports.updateUser = exports.createUser = void 0;
 var fs_1 = require("fs");
+var utils_1 = require("../utils");
+var userSchema_1 = require("../models/userSchema");
 var readFile = fs_1.promises.readFile, writeFile = fs_1.promises.writeFile;
 var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var data, file, date, user, profilePictureUrl, err_1;
     return __generator(this, function (_a) {
-        try {
-            // await User.create({})
+        switch (_a.label) {
+            case 0:
+                data = req.body;
+                file = req.file;
+                date = Date.now();
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 5, , 6]);
+                if (!file) return [3 /*break*/, 3];
+                return [4 /*yield*/, (0, utils_1.uploadPhoto)(data.username, file.path, date)];
+            case 2:
+                profilePictureUrl = _a.sent();
+                data.profile_picture = profilePictureUrl;
+                _a.label = 3;
+            case 3: return [4 /*yield*/, userSchema_1.User.create(data)];
+            case 4:
+                user = _a.sent();
+                console.log("Created User");
+                return [3 /*break*/, 6];
+            case 5:
+                err_1 = _a.sent();
+                console.log(err_1);
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/, user];
         }
-        catch (_b) { }
-        return [2 /*return*/, ""];
     });
 }); };
 exports.createUser = createUser;
+var updateUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var data, updateObject, _i, _a, _b, key, value, e_1;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                data = req.body;
+                updateObject = {};
+                if (!data.uid || !data.username)
+                    return [2 /*return*/];
+                for (_i = 0, _a = Object.entries(data); _i < _a.length; _i++) {
+                    _b = _a[_i], key = _b[0], value = _b[1];
+                    if (key === "username" || key === "uid")
+                        continue;
+                    updateObject[key] = value;
+                }
+                _c.label = 1;
+            case 1:
+                _c.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, userSchema_1.User.findOneAndUpdate({ uid: data.uid }, { $set: updateObject }).exec()];
+            case 2:
+                _c.sent();
+                return [3 /*break*/, 4];
+            case 3:
+                e_1 = _c.sent();
+                console.log(e_1);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.updateUser = updateUser;
+var getAllUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var users;
+    return __generator(this, function (_a) {
+        users = userSchema_1.User.find();
+        res.send(users);
+        return [2 /*return*/];
+    });
+}); };
+exports.getAllUsers = getAllUsers;
+var getUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, userSchema_1.User.findOne({ username: req.params.username })];
+            case 1:
+                user = _a.sent();
+                res.send(user);
+                return [2 /*return*/];
+        }
+    });
+}); };
+exports.getUser = getUser;

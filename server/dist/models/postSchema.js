@@ -6,17 +6,17 @@ var getDate = function () {
     var date = new Date();
     return date.getTime();
 };
-var likesSchema = ts_mongoose_1.createSchema({
-    userID: ts_mongoose_1.Type.string({ required: true, unique: true }),
+var likesSchema = (0, ts_mongoose_1.createSchema)({
+    user_id: ts_mongoose_1.Type.string({ required: true }),
 });
-var subCommentsSchema = ts_mongoose_1.createSchema({
+var subCommentsSchema = (0, ts_mongoose_1.createSchema)({
     comment: ts_mongoose_1.Type.string({ required: true }),
     date: ts_mongoose_1.Type.number({ default: getDate, required: true }),
     likes: ts_mongoose_1.Type.array().of(likesSchema),
     username: ts_mongoose_1.Type.string({ required: true }),
     user_id: ts_mongoose_1.Type.string({ required: true }),
 });
-var commentsSchema = ts_mongoose_1.createSchema({
+var commentsSchema = (0, ts_mongoose_1.createSchema)({
     comment: ts_mongoose_1.Type.string({ required: true }),
     comment_id: ts_mongoose_1.Type.string({ required: true }),
     subcomment: ts_mongoose_1.Type.array().of(subCommentsSchema),
@@ -25,7 +25,7 @@ var commentsSchema = ts_mongoose_1.createSchema({
     date: ts_mongoose_1.Type.number({ default: getDate, required: true }),
     user_id: ts_mongoose_1.Type.string({ required: true }),
 });
-var postSchema = ts_mongoose_1.createSchema({
+var postSchema = (0, ts_mongoose_1.createSchema)({
     comments: ts_mongoose_1.Type.array().of(commentsSchema),
     date: ts_mongoose_1.Type.number({ default: getDate, required: true }),
     image: ts_mongoose_1.Type.string({ required: true }),
@@ -36,5 +36,5 @@ var postSchema = ts_mongoose_1.createSchema({
     username: ts_mongoose_1.Type.string({ required: true }),
     user_id: ts_mongoose_1.Type.string({ required: true }),
 });
-exports.Post = ts_mongoose_1.typedModel("Post", postSchema);
+exports.Post = (0, ts_mongoose_1.typedModel)("Post", postSchema);
 // export const Comment = mongoose.model("Comment", commentsSchema);

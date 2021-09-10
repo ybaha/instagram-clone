@@ -13,7 +13,6 @@ export const createUniquePost = async (req: Request, res: Response) => {
   let imageUrl = await uploadPhoto(body.username, file.path, date);
 
   let response: any;
-  console.log("asd");
   try {
     response = await Post.create({
       username: body.username,
@@ -23,14 +22,13 @@ export const createUniquePost = async (req: Request, res: Response) => {
       date: date,
     });
     console.log(response);
-    console.log("dsa");
 
-    console.log(response.post_id);
+    console.log(response._id);
     await User.findOneAndUpdate(
       {
         uid: body.uid,
       },
-      { $addToSet: { posts: { post_id: response.post_id } } }
+      { $addToSet: { posts: { post_id: response._id } } }
     ).exec();
 
     console.log("Created new post -> ", response._id);
@@ -54,7 +52,7 @@ export const createPost = async (req: Request, res: Response) => {
 
 type Like = {
   username: string;
-  userId: string;
+  user_id: string;
   postId: string;
 };
 
@@ -69,10 +67,10 @@ export const likePost = async (req: Request, res: Response) => {
     {
       $and: [
         { _id: data.postId },
-        { likes: { $elemMatch: { user_id: data.userId } } },
+        { likes: { $elemMatch: { user_id: data.user_id } } },
       ],
     },
-    { $pull: { likes: { user_id: data.userId } } }
+    { $pull: { likes: { user_id: data.user_id } } }
   )
     .exec()
     .catch((e) => {
@@ -84,10 +82,10 @@ export const likePost = async (req: Request, res: Response) => {
       {
         $and: [
           { _id: data.postId },
-          { likes: { $not: { $elemMatch: { v: data.userId } } } },
+          { likes: { $not: { $elemMatch: { v: data.user_id } } } },
         ],
       },
-      { $addToSet: { likes: { user_id: data.userId } } }
+      { $addToSet: { likes: { user_id: data.user_id } } }
     )
       .exec()
       .catch((e) => {
@@ -103,7 +101,7 @@ type Comments = {
   parentCommentId: string;
   comment: string;
   postId: string;
-  userId: string;
+  user_id: string;
   username: string;
 };
 
@@ -111,7 +109,7 @@ export const commentOnPost = async (req: Request, res: Response) => {
   let data: Comments = req.body;
   let post = await Post.findOne({ _id: data.postId }).exec();
 
-  if (!data.userId) return;
+  if (!data.user_id) return;
 
   let response;
 
@@ -124,7 +122,7 @@ export const commentOnPost = async (req: Request, res: Response) => {
             comment: data.comment,
             comment_id: nanoid(),
             username: data.username,
-            user_id: data.userId,
+            user_id: data.user_id,
           },
         },
       }
@@ -139,8 +137,10 @@ export const commentOnPost = async (req: Request, res: Response) => {
     let subcomment = {
       comment: data.comment,
       username: data.username,
-      user_id: data.userId,
+      user_id: data.user_id,
     };
+
+    console.log(subcomment)
 
     response = await Post.findOneAndUpdate(
       {
