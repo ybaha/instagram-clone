@@ -4,12 +4,7 @@
   "private": true,
   "homepage": "https://ybaha.github.io/istekram/",
   "dependencies": {
-    "@craco/craco": "^6.2.0",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
     "@types/firebase": "^3.2.1",
-    "@types/jest": "^27.0.1",
     "@types/node": "^16.6.1",
     "@types/react": "^17.0.17",
     "@types/react-dom": "^17.0.9",
@@ -33,9 +28,9 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "cross-env REACT_APP_SERVER=http://localhost:5000/ craco start",
-    "build": "cross-env REACT_APP_SERVER=https://istekram.herokuapp.com/ craco build",
-    "dev": "cross-env REACT_APP_SERVER=https://istekram.herokuapp.com/ craco start",
+    "start": "cross-env REACT_APP_SERVER=http://localhost:5000/ react-scripts start",
+    "build": "cross-env REACT_APP_SERVER=https://istekram.herokuapp.com/ react-scripts build",
+    "dev": "cross-env REACT_APP_SERVER=https://istekram.herokuapp.com/ react-scripts start",
     "test": "craco test",
     "eject": "craco eject",
     "predeploy": "npm run build",
