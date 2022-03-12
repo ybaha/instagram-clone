@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "./AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import s from "./Login.module.scss";
 
 export default function Login() {
@@ -9,7 +9,7 @@ export default function Login() {
   const { login } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -21,8 +21,8 @@ export default function Login() {
         await login(emailRef.current.value, passwordRef.current.value);
         await login(emailRef.current.value, passwordRef.current.value);
       }
-      history.push("/istekram");
-    } catch (e) {
+      navigate("/istekram");
+    } catch (e: any) {
       console.log(e);
       setError(e.message);
       setLoading(false);

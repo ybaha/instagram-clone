@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import PrivateRoute from "./PrivateRoute";
 import App from "../components/App";
@@ -18,23 +18,43 @@ const Router: React.FC = () => {
 
   const PrivateRoutes = () => {
     return (
-      <Switch>
-        <PrivateRoute path="/" component={App} />
-        {/* <Route render={() => <NoMatch text={"PrivateRoutes"} />} /> */}
-      </Switch>
+      <Routes>
+        <Route
+          path="/istekram/*"
+          element={
+            <PrivateRoute>
+              <App />
+            </PrivateRoute>
+          }
+        />
+        <Route element={<NoMatch text="PrivateRoutes" />} />
+      </Routes>
     );
   };
 
   const AuthRoutes = () => {
     return (
-      <Switch>
-        <PrivateRoute exact path="/istekram" component={Login} />
-        <Route path="/istekram/login" component={Login} />
-        <Route path="/istekram/signup" component={Signup} />
-        <Route path="/istekram/forgot-password" component={ForgotPassword} />
-        <PrivateRoute path="/istekram/" component={Profile} />
-        <Route render={() => <NoMatch text={"Auth Routes"} />} />
-      </Switch>
+      <Routes>
+        <Route
+          path="/istekram/*"
+          element={
+            <PrivateRoute>
+              <Login />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/istekram/login" element={<Login />} />
+        <Route path="/istekram/signup" element={<Signup />} />
+        <Route path="/istekram/forgot-password" element={<ForgotPassword />} />
+        <Route
+          path="/istekram/"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
     );
   };
 

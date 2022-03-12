@@ -1,10 +1,7 @@
 module.exports = {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   mode: "jit",
-  content: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}"],
   theme: {
-    extend: {},
-  },
-  variants: {
     extend: {},
   },
   plugins: [],

@@ -19,7 +19,7 @@ const CreatePost = ({
     raw: "",
   });
   const [alert, setAlert] = React.useState("");
-  const [isURL, setIsURL] = React.useState(true);
+  const [isURL, setIsURL] = React.useState(false);
   const { setPosts, showUI, setShowUI } = useStore();
   const { getCurrentUsername, currentUser } = useAuth();
   const imgUrlRef: any = React.useRef();
@@ -109,19 +109,52 @@ const CreatePost = ({
     }
   };
 
+  const buttonStyle = (isURL: boolean) =>
+    isURL
+      ? {
+          backgroundColor: "#2563eb",
+          borderColor: "#2563eb",
+          color: "white",
+        }
+      : {
+          backgroundColor: "white",
+          borderColor: "#2563eb",
+          color: "#2563eb",
+        };
+
   const CreatePostUI: React.FC = () => {
     let app = document.getElementById("root");
     if (app) {
       return ReactDOM.createPortal(
         <>
           <div className={showUI ? `${s.uiWrapper}` : `${s.hidden}`}>
-            <div className={s.uiMain}>
-              <form className={s.form} onSubmit={(e: any) => handleSubmit(e)}>
+            <div className={s.uiMain + " rounded"}>
+              <form
+                className={"w-full px-8 py-2"}
+                onSubmit={(e: any) => handleSubmit(e)}
+              >
+                <div className="flex justify-center p-4">
+                  <button
+                    onClick={() => setIsURL(false)}
+                    className="border-2 w-[110px] text-blue-600 border-blue-600 rounded-l-lg mr-2"
+                    style={buttonStyle(!isURL)}
+                  >
+                    From Device
+                  </button>
+                  <button
+                    onClick={() => setIsURL(true)}
+                    className="border-2 w-[110px] text-blue-600 border-blue-600  rounded-r-lg"
+                    style={buttonStyle(isURL)}
+                  >
+                    Via URL
+                  </button>
+                </div>
                 <div className={s.formRow}>
                   {isURL ? (
                     <>
                       <span>Image Url</span>
                       <input
+                        className="border rounded border-gray-300 p-0.5 pl-2"
                         onChange={handleImageInputChange}
                         maxLength={600}
                         ref={imgUrlRef}
@@ -131,6 +164,7 @@ const CreatePost = ({
                     <>
                       <span>Image</span>
                       <input
+                        className="border rounded border-gray-300 p-0.5 pl-2"
                         type="file"
                         onChange={handleUploadImage}
                         style={{ display: "none" }}
@@ -138,28 +172,40 @@ const CreatePost = ({
                       ></input>
                       <label
                         htmlFor={"file"}
-                        style={{ background: "#0095f6", borderRadius: "3px" }}
+                        className="border-b-2 w-[95px] border-dotted cursor-pointer text-blue-600 border-blue-600"
+                        style={
+                          !!uploadedImage.preview.length
+                            ? {
+                                width: "140px",
+                                whiteSpace: "normal",
+                                fontSize: "14px",
+                              }
+                            : { width: "95px", whiteSpace: "nowrap" }
+                        }
                       >
                         {!!uploadedImage.preview.length
-                          ? "Yuklendi. Tekrar secmek icin dokun"
-                          : "Select Image"}
+                          ? "Click to choose again"
+                          : "Choose Image"}
                       </label>
                     </>
                   )}
                 </div>
-                <button
-                  style={{ width: "100px" }}
-                  onClick={() => setIsURL(!isURL)}
-                >
-                  {isURL ? "Cihazdan" : "URL ile"}
-                </button>
                 <div className={s.formRow}>
-                  <span>Text</span>
-                  <input maxLength={256} ref={imgTextRef}></input>
+                  <span>Descripton</span>
+                  <input
+                    className="border rounded border-gray-300 p-0.5 pl-2"
+                    maxLength={256}
+                    ref={imgTextRef}
+                  ></input>
                 </div>
-                <button type="submit" className={s.submit}>
-                  Gonderi Olustur
-                </button>
+                <div className="flex justify-center">
+                  <button
+                    type="submit"
+                    className="border-2 mt-24 border-blue-600 bg-blue-600 text-white px-2 py-1 rounded-lg"
+                  >
+                    Gonderi Olustur
+                  </button>
+                </div>
               </form>
             </div>
           </div>

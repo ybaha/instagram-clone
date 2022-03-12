@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "./AuthContext";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import s from "./Signup.module.scss";
+import axios from "axios";
 
 export default function Signup() {
   const emailRef = useRef<any>();
@@ -9,10 +10,10 @@ export default function Signup() {
   const usernameRef = useRef<any>();
   const fullNameRef = useRef<any>();
   const passwordConfirmRef = useRef<any>();
-  const { signup } = useAuth();
+  const { signup, currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   async function handleSubmit(e: any) {
     e.preventDefault();
@@ -32,11 +33,16 @@ export default function Signup() {
         usernameRef.current.value,
         fullNameRef.current.value
       );
+      axios.post(process.env.REACT_APP_SERVER!, {
+        uid: currentUser?.uid,
+        email: emailRef.current.value,
+        username: usernameRef.current.value,
+      });
       if (obj.message) {
         setError(obj.message);
         setLoading(false);
       } else {
-        history.push("/istekram");
+        navigate("/istekram");
         window.location.reload(); //fix this later
       }
     } catch {

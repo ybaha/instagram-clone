@@ -1,15 +1,20 @@
 import React, { useContext, useState, useEffect } from "react";
-import { auth } from "./firebase";
-import firebase from "firebase/app";
+import { auth, db } from "./firebase";
+import type { User, UserCredential } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  updateEmail as updateEmailF,
+  updatePassword as updatePasswordF,
+} from "firebase/auth";
+import { set, onValue, ref } from "firebase/database";
 import axios from "axios";
 
 type ContextProps = {
-  currentUser: firebase.User | null | undefined;
+  currentUser: User | null | undefined;
   getCurrentUsername: () => string;
-  login: (
-    email: string,
-    password: string
-  ) => Promise<firebase.auth.UserCredential>;
+  login: (email: string, password: string) => Promise<UserCredential>;
   signup: (
     email: string,
     password: string,
@@ -17,9 +22,9 @@ type ContextProps = {
     real_name: string
   ) => Promise<{ message: string }>;
   logout: () => Promise<void>;
-  resetPassword: (email: string) => Promise<void>;
-  updateEmail: (email: string) => Promise<void>;
-  updatePassword: (password: string) => Promise<void>;
+  resetPassword: (email: string) => Promise<void> | undefined;
+  updateEmail: (email: string) => Promise<void> | undefined;
+  updatePassword: (password: string) => Promise<void> | undefined;
 };
 
 const AuthContext = React.createContext<ContextProps | undefined>(undefined);
@@ -35,7 +40,7 @@ export const useAuth = () => {
 type Props = { children: any };
 
 const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState<firebase.User | null>();
+  const [currentUser, setCurrentUser] = useState<User | null>();
   const [loading, setLoading] = useState(true);
   const [currentUsername, setCurrentUsername] = useState<undefined | string>(
     undefined
@@ -49,23 +54,21 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   ) {
     let o;
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       setTimeout(() => {}, 1000);
-      if (!firebase.auth().currentUser?.uid) {
+      if (!auth.currentUser?.uid) {
         console.log("currentuser yok");
         return;
       }
-      firebase
-        .database()
-        .ref("users/" + firebase.auth().currentUser?.uid)
-        .set({
-          username: username,
-        });
-      console.log(firebase.auth().currentUser?.uid);
+
+      set(ref(db, "users/" + auth.currentUser?.uid), {
+        username: username,
+      });
+      // console.log(auth.currentUser.uid);
       let res = await axios.post(
         process.env.REACT_APP_SERVER + "api/user/create",
         {
-          uid: firebase.auth().currentUser?.uid,
+          uid: auth.currentUser?.uid,
           username: username,
           profile_picture: "",
           real_name: real_name,
@@ -77,8 +80,8 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
         }
       );
       console.log(res.data);
-      var usersRef = firebase.database().ref("users/" + currentUser!.uid);
-      usersRef.on("value", (snapshot) => {
+      var usersRef = ref(db, "users/" + currentUser!.uid);
+      onValue(usersRef, (snapshot) => {
         res = snapshot.val();
         console.log(res);
       });
@@ -90,7 +93,7 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   function login(email: string, password: string) {
-    return auth.signInWithEmailAndPassword(email, password);
+    return signInWithEmailAndPassword(auth, email, password);
   }
 
   function logout() {
@@ -98,15 +101,19 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
   }
 
   function resetPassword(email: string) {
-    return auth.sendPasswordResetEmail(email);
+    return sendPasswordResetEmail(auth, email);
   }
 
   function updateEmail(email: string) {
-    return currentUser!.updateEmail(email);
+    if (auth.currentUser) {
+      return updateEmailF(auth.currentUser, email);
+    }
   }
 
   function updatePassword(password: string) {
-    return currentUser!.updatePassword(password);
+    if (auth.currentUser) {
+      return updatePasswordF(auth.currentUser, password);
+    }
   }
 
   function getCurrentUsername() {
@@ -116,8 +123,8 @@ const AuthProvider: React.FC<Props> = ({ children }) => {
       return currentUsername;
     }
 
-    var usersRef = firebase.database().ref("/users/" + currentUser?.uid);
-    usersRef.on("value", (snapshot) => {
+    var usersRef = ref(db, "/users/" + currentUser?.uid);
+    onValue(usersRef, (snapshot) => {
       if (snapshot.exists()) {
         res = snapshot.val();
         setCurrentUsername(res?.username);

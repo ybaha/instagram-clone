@@ -1,8 +1,7 @@
 import multer from "multer";
 import ApiClient from "imgbb";
-import { promises } from "fs";
+import { promises as fsP, default as fs } from "fs";
 
-const { readFile } = promises;
 let key = "a1e4a333e66c1b8d5163332ba42cd473";
 
 export const uploadPhoto = async (
@@ -11,13 +10,18 @@ export const uploadPhoto = async (
   date: number
 ) => {
   let name = username + "_" + date;
+
+  if (!fs.existsSync("../temp")) {
+    await fsP.mkdir("../temp");
+  }
+
   let api = new ApiClient({
     token: key,
   });
   let bbres: any = await api
     .upload({
       name: name,
-      image: await readFile(filePath),
+      image: await fsP.readFile(filePath),
     })
     .catch((e) => console.log(e));
 

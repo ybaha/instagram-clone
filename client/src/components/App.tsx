@@ -3,7 +3,7 @@ import Home from "./Home/Home";
 import Direct from "./Direct/Direct";
 import NavbarTop from "./Navbar/Navbar";
 import Footer from "./Footer/Footer";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useAuth } from "../Firebase/AuthContext";
 import Profile from "./Profile";
 import axios from "axios";
@@ -46,14 +46,14 @@ const App: React.FC = () => {
 
   return (
     <div className="App" id="App">
-      <Router>
-        <NavbarTop />
-        <Switch>
-          <Route exact path="/istekram" component={HomeComponent} />
-          <Route path="/istekram/direct/inbox" component={Direct} />
-          <Route path="/istekram/:username" component={Profile} />
-        </Switch>
-      </Router>
+      {/* <Router> */}
+      <NavbarTop />
+      <Routes>
+        <Route path="/" element={<HomeComponent />} />
+        <Route path="/direct/inbox" element={<Direct />} />
+        <Route path="/:username" element={<Profile />} />
+      </Routes>
+      {/* </Router> */}
     </div>
   );
 };

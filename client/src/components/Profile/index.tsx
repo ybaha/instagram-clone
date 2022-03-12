@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import s from "./index.module.scss";
-import { RouteComponentProps } from "react-router";
+import { useParams } from "react-router";
 import Button from "../Button";
 import { RiUserAddFill, RiUserFollowFill } from "react-icons/ri";
 import { BiLink } from "react-icons/bi";
@@ -32,13 +32,13 @@ const Page404: React.FC = () => {
   return <h2>Sorry this page is not available</h2>;
 };
 
-const Profile: React.FC<RouteComponentProps<RouteParams>> = (p) => {
+const Profile: React.FC = () => {
   const [profileData, setProfileData] = React.useState<UserData>(
     {} as UserData
   );
   const { currentUserData } = useStore();
+  const { username } = useParams();
 
-  const username = p.match.params.username;
   let { getCurrentUsername } = useAuth();
 
   async function getUser() {
@@ -52,7 +52,7 @@ const Profile: React.FC<RouteComponentProps<RouteParams>> = (p) => {
 
   React.useEffect(() => {
     getUser();
-  }, [p.match.params.username]);
+  }, [username]);
 
   const parseUrl = (url: string) => {
     let hname = new URL(url).hostname;

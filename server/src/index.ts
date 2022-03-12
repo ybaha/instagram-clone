@@ -6,7 +6,7 @@ import cors from "cors";
 import { pw } from "./pw";
 import { UserRouter } from "./routes/user";
 
-export const port = process.env.PORT || 5000;
+export const port = process.env.PORT || 3001;
 const app = express();
 
 let mongooseURL =

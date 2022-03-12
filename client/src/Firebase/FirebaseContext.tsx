@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import firebase from "firebase/app";
+import { getDatabase, set, ref } from "firebase/database";
 
 type ContextProps = {
   getPosts: () => void;
@@ -19,17 +19,19 @@ export const useFirebase = () => {
 };
 
 const FirebaseProvider: React.FC<{ children: any }> = ({ children }) => {
+  const db = getDatabase();
+
   function getPosts() {
-    let dbRef = firebase.database().ref();
-    dbRef.on("value", (data) => {
-      console.log(data.val());
-    });
+    // let dbRef = firebase.database().ref();
+    // dbRef.on("value", (data) => {
+    //   console.log(data.val());
+    // });
   }
 
   function setPosts() {
-    let dbRef = firebase.database().ref();
-    var newPostRef = dbRef.push();
-    newPostRef.set({});
+    // let dbRef = firebase.database().ref();
+    // var newPostRef = dbRef.push();
+    // newPostRef.set({});
   }
 
   const value = {

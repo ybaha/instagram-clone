@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({ type, text, icon, style }) => {
 const ButtonContainer = styled.div<{ style: object }>``;
 
 const ButtonInner = styled.button<{ t: string }>`
-  background-color: ${(p) => (p.t === "primary" ? "#0095f6" : "")};
+  background-color: ${(p: any) => (p.t === "primary" ? "#0095f6" : "")};
   text-overflow: ellipsis;
   white-space: nowrap;
   border: 1px solid #dbdbdb;

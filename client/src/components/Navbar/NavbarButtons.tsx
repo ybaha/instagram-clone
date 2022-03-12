@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Firebase/AuthContext";
 import {
   Direct,
@@ -25,11 +25,11 @@ const NavbarButtons: React.FC<{
   setDropdown?: Function;
 }> = ({ button, dropdown, setDropdown }) => {
   const Button = button;
-  const history = useHistory();
+  const navigate = useNavigate();
   const { logout } = useAuth();
 
   const handleHistory = (url: string) => {
-    history.push(url);
+    navigate(url);
   };
 
   const handleDropdown = () => {

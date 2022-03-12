@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./index.module.scss";
 import postImage from "./post.jpg";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Comment, Direct, Like, LikeFill, Subdir } from "../../icons";
 import TimeAgo from "react-timeago";
 import axios from "axios";
@@ -51,7 +51,7 @@ const Post: React.FC<Props> = ({
   // liked,
   id,
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { getCurrentUsername, currentUser } = useAuth();
   const { posts, setPosts } = useStore();
   const [liked, setLiked] = React.useState(false);
@@ -192,7 +192,7 @@ const Post: React.FC<Props> = ({
         </div>
         <div
           className={s.username}
-          onClick={() => history.push("/istekram/" + username)}
+          onClick={() => navigate("/istekram/" + username)}
         >
           {username}
         </div>

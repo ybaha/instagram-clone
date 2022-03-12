@@ -12,8 +12,6 @@ node_modules
 build
 pw.ts
 
-temp/
-
 # misc
 .DS_Store
 .env.local

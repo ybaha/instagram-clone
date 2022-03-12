@@ -1,27 +1,27 @@
-import React, { useRef, useState } from "react"
-import { useAuth } from "../../Firebase/AuthContext"
-import { Link, useHistory } from "react-router-dom"
+import React, { useRef, useState } from "react";
+import { useAuth } from "../../Firebase/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
-  const emailRef = useRef()
-  const passwordRef = useRef()
-  const { login } = useAuth()
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
-  const history = useHistory()
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { login } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-      setError("")
-      setLoading(true)
-      await login(emailRef.current.value, passwordRef.current.value)
-      history.push("/istekram")
-    } catch(e) {
-      setError(e)
-      console.log(e)
-      setLoading(false)
+      setError("");
+      setLoading(true);
+      await login(emailRef.current.value, passwordRef.current.value);
+      navigate("/istekram");
+    } catch (e) {
+      setError(e);
+      console.log(e);
+      setLoading(false);
     }
   }
 
@@ -46,5 +46,5 @@ export default function Login() {
       </div>
       <div className="sub-container"></div>
     </div>
-  )
+  );
 }

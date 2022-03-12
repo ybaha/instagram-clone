@@ -3,7 +3,6 @@ import "./Direct.css";
 import DirectFooter from "./DirectFooter";
 import Leftbar from "./Leftbar";
 import Rightbar from "./Rightbar";
-import { Switch, Route } from "react-router-dom";
 import { useWindowSize } from "../Home/Stories/Resize";
 import { Hamburger } from "../icons";
 export default function DirectD() {
@@ -41,7 +40,11 @@ export default function DirectD() {
 
   const handleUI = () => {
     return windowWidth < 934 ? (
-      <Route component={contactClicked ? Leftbar : Rightbar} />
+      contactClicked ? (
+        <Leftbar />
+      ) : (
+        <Rightbar />
+      )
     ) : (
       <>
         <Leftbar></Leftbar>

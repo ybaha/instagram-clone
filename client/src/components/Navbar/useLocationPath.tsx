@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 
 export function useLocationPath() {
   const [path, setPath] = React.useState(window.location.pathname);
