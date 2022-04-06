@@ -1,6 +1,7 @@
 import multer from "multer";
 import ApiClient from "imgbb";
 import { promises as fsP, default as fs } from "fs";
+import sharp from "sharp";
 
 let key = "a1e4a333e66c1b8d5163332ba42cd473";
 
