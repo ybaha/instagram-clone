@@ -20,7 +20,7 @@ const Router: React.FC = () => {
     return (
       <Routes>
         <Route
-          path="/istekram/*"
+          path="/*"
           element={
             <PrivateRoute>
               <App />
@@ -36,18 +36,18 @@ const Router: React.FC = () => {
     return (
       <Routes>
         <Route
-          path="/istekram/*"
+          path="/*"
           element={
             <PrivateRoute>
               <Login />
             </PrivateRoute>
           }
         />
-        <Route path="/istekram/login" element={<Login />} />
-        <Route path="/istekram/signup" element={<Signup />} />
-        <Route path="/istekram/forgot-password" element={<ForgotPassword />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route
-          path="/istekram/"
+          path="/"
           element={
             <PrivateRoute>
               <Profile />
@@ -59,7 +59,7 @@ const Router: React.FC = () => {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/instagram-clone">
       {currentUser ? <PrivateRoutes /> : <AuthRoutes />}
     </BrowserRouter>
   );

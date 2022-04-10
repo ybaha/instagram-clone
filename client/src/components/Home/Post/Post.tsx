@@ -190,10 +190,7 @@ const Post: React.FC<Props> = ({
             ""
           )}
         </div>
-        <div
-          className={s.username}
-          onClick={() => navigate("/istekram/" + username)}
-        >
+        <div className={s.username} onClick={() => navigate("/" + username)}>
           {username}
         </div>
       </div>

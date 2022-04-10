@@ -19,13 +19,14 @@ export default function Login() {
       setLoading(true);
       if (emailRef.current && passwordRef.current) {
         await login(emailRef.current.value, passwordRef.current.value);
-        await login(emailRef.current.value, passwordRef.current.value);
+        // await login(emailRef.current.value, passwordRef.current.value);
       }
-      navigate("/istekram");
     } catch (e: any) {
       console.log(e);
       setError(e.message);
       setLoading(false);
+    } finally {
+      navigate("/");
     }
   }
 
@@ -37,7 +38,7 @@ export default function Login() {
       <div className={s.rightSec}>
         <div className={s.loginTop}>
           <img
-            src={process.env.PUBLIC_URL + "/istekram.png"}
+            src={process.env.PUBLIC_URL + "/.png"}
             height="51px"
             alt="logo"
           ></img>
@@ -83,7 +84,7 @@ export default function Login() {
             </div>
             <div className={s.forgotPassword}>
               <Link
-                to="/istekram/forgot-password"
+                to="/forgot-password"
                 style={{ textDecoration: "none", color: "black" }}
               >
                 Forgot password?
@@ -94,7 +95,7 @@ export default function Login() {
         <div className={s.loginBot}>
           Don't have an accout?
           <Link
-            to="/istekram/signup"
+            to="/signup"
             style={{
               textDecoration: "none",
               fontWeight: 600,

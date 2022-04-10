@@ -12,11 +12,7 @@ export default function NavbarTop() {
   const loc = useLocation();
 
   React.useEffect(() => {
-    if (
-      loc.pathname === "/istekram/direct/inbox" &&
-      width < 935 &&
-      navbar.current
-    ) {
+    if (loc.pathname === "/direct/inbox" && width < 935 && navbar.current) {
       navbar.current.style.display = "none";
     } else if (navbar.current) {
       navbar.current.style.display = "block";
@@ -47,7 +43,7 @@ export default function NavbarTop() {
       {/* <Layer dropdown={dropdown} /> */}
       <div className="navbar" ref={navbar}>
         <div className="navbar-container">
-          <Link to="/istekram" style={{ height: "30px" }}>
+          <Link to="/" style={{ height: "30px" }}>
             <img className="istekram-logo" src={logo} alt="Instekram"></img>
           </Link>
           <input placeholder="Ara"></input>

@@ -2,19 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Firebase/AuthContext";
-import {
-  Direct,
-  DirectFill,
-  Explore,
-  ExploreFill,
-  Home,
-  HomeFill,
-  Like,
-  LikeFill,
-  Profile,
-  Settings,
-  SaveBorder,
-} from "../icons";
+import { Direct, Explore, HomeFill, Like, Profile } from "../icons";
 import { Link } from "react-router-dom";
 import Dropdown from "./Dropdown";
 import axios from "axios";
@@ -23,7 +11,8 @@ const NavbarButtons: React.FC<{
   button?: any;
   dropdown?: boolean;
   setDropdown?: Function;
-}> = ({ button, dropdown, setDropdown }) => {
+  style?: React.CSSProperties;
+}> = ({ button, dropdown, setDropdown, style }) => {
   const Button = button;
   const navigate = useNavigate();
   const { logout } = useAuth();
@@ -34,6 +23,7 @@ const NavbarButtons: React.FC<{
 
   const handleDropdown = () => {
     if (setDropdown) setDropdown(!dropdown);
+    console.log({ dropdown });
   };
 
   return (
@@ -55,9 +45,9 @@ const NavbarButtons: React.FC<{
       <div className="navbar-btns">
         <Link
           onClick={() => {
-            handleHistory("/istekram/direct/inbox");
+            handleHistory("/direct/inbox");
           }}
-          to="/istekram"
+          to="/"
           style={{ textDecoration: "none", color: "black" }}
         >
           <HomeFill />
@@ -65,12 +55,12 @@ const NavbarButtons: React.FC<{
       </div>
       <div className="navbar-btns">
         <Link
-          to="/istekram/direct/inbox"
+          to="/direct/inbox"
           style={{ textDecoration: "none", color: "black" }}
         >
           <Direct
             onClick={() => {
-              handleHistory("/istekram/direct/inbox");
+              handleHistory("/direct/inbox");
             }}
           />
         </Link>
@@ -80,23 +70,23 @@ const NavbarButtons: React.FC<{
       </div>
       <div className="navbar-btns">
         <Like
-          onClick={async () => {
-            let res = await axios.post(
-              process.env.REACT_APP_SERVER + "api/user/create",
-              {
-                uid: "H3ji7gRGlahwM4cvmkcxdpBZkwC2",
-                username: "emirmmustafa",
-                profile_picture: "",
-                real_name: "",
-                website: "",
-                bio: "",
-                email: "hek@hek.co",
-                following: [],
-                posts: [],
-              }
-            );
-            console.log(res.data);
-          }}
+        // onClick={async () => {
+        //   let res = await axios.post(
+        //     process.env.REACT_APP_SERVER + "api/user/create",
+        //     {
+        //       uid: "H3ji7gRGlahwM4cvmkcxdpBZkwC2",
+        //       username: "emirmmustafa",
+        //       profile_picture: "",
+        //       real_name: "",
+        //       website: "",
+        //       bio: "",
+        //       email: "hek@hek.co",
+        //       following: [],
+        //       posts: [],
+        //     }
+        //   );
+        //   console.log(res.data);
+        // }}
         />
       </div>
       <div
@@ -105,7 +95,7 @@ const NavbarButtons: React.FC<{
         style={{ cursor: "pointer" }}
       >
         <Profile />
-        {dropdown ? <Dropdown /> : <div></div>}
+        {dropdown ? <Dropdown style={style ? style : {}} /> : <div></div>}
       </div>
     </div>
   );

@@ -51,6 +51,7 @@ const Profile: React.FC = () => {
   }
 
   React.useEffect(() => {
+    window.scrollTo(0, 0);
     getUser();
   }, [username]);
 
@@ -71,15 +72,19 @@ const Profile: React.FC = () => {
       {!profileData.username ? (
         <Page404 />
       ) : (
-        <div className={s.profileContainer}>
-          <div className={s.profileHeader}>
-            <div className={s.profileImage}>
-              <img src={profileData.profile_picture}></img>
+        <div className={"container py-4 sm:py-8 max-w-[956px]"}>
+          <div className="flex flex-row px-4 sm:px-20">
+            <div className="mr-4 sm:mr-[100px] rounded-full flex-shrink-0">
+              <img
+                src={profileData.profile_picture || "default.jpeg"}
+                // width="150px"
+                className="rounded-full w-[77px] sm:w-[150px]"
+              ></img>
             </div>
-            <section className={s.profileInfo}>
-              <div className={s.section}>
-                <h2>{profileData.username}</h2>
-                <div className={s.headerButtons}>
+            <section className={`${s.profileInfo} `}>
+              <div className={`${s.section} py-2`}>
+                <h2 className="text-3xl">{profileData.username}</h2>
+                <div className={`${s.headerButtons} ml-8`}>
                   {username === getCurrentUsername() ? (
                     <div
                       style={{

@@ -40,11 +40,11 @@ export default function ForgotPassword() {
           </button>
         </form>
         <div>
-          <Link to="/istekram/login">Login</Link>
+          <Link to="/login">Login</Link>
         </div>
 
         <div>
-          Need an account? <Link to="/istekram/signup">Sign Up</Link>
+          Need an account? <Link to="/signup">Sign Up</Link>
         </div>
       </div>
     </div>

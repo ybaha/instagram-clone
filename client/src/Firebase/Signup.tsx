@@ -42,7 +42,7 @@ export default function Signup() {
         setError(obj.message);
         setLoading(false);
       } else {
-        navigate("/istekram");
+        navigate("/");
         window.location.reload(); //fix this later
       }
     } catch {
@@ -54,7 +54,7 @@ export default function Signup() {
     <div className={s.signupWrapper}>
       <div className={s.signup}>
         <img
-          src={process.env.PUBLIC_URL + "/istekram.png"}
+          src={process.env.PUBLIC_URL + "/.png"}
           className={s.logo}
           alt="logo"
         ></img>
@@ -103,7 +103,7 @@ export default function Signup() {
       </div>
       <div className={s.signupBot}>
         Have an account?{" "}
-        <Link to="/istekram/login" className={s.lgnBtn}>
+        <Link to="/login" className={s.lgnBtn}>
           Log In
         </Link>
       </div>

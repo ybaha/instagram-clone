@@ -17,7 +17,7 @@ export default function Login() {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/istekram");
+      navigate("/");
     } catch (e) {
       setError(e);
       console.log(e);
@@ -37,7 +37,7 @@ export default function Login() {
             <input type="password" ref={passwordRef} required />
           </div>
           <div>
-            <Link to="/istekram/forgot-password">Forgot Password?</Link>
+            <Link to="/forgot-password">Forgot Password?</Link>
           </div>
           <button disabled={loading} type="submit" className="login-button">
             Log In
