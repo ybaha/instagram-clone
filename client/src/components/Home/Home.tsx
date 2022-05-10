@@ -11,6 +11,7 @@ import { useStore } from "../../store/UIStore";
 import { observer } from "mobx-react-lite";
 import { useInterval } from "../../utils/useInterval";
 import { useAuth } from "../../Firebase/AuthContext";
+import { VscLoading } from "react-icons/vsc";
 
 const Page: React.FC = () => {
   const { posts, setPosts, showUI } = useStore();
@@ -46,11 +47,13 @@ const Page: React.FC = () => {
       ));
     } else {
       return (
-        <div style={{ textAlign: "center", color: "#333333" }}>
-          <h2 style={{ fontWeight: 500 }}>
+        <div className="flex justify-center flex-col items-center">
+          {/* <h2 style={{ fontWeight: 500 }}>
             There are no posts to see on your feed
           </h2>
-          <h3 style={{ fontWeight: 500 }}>Start following people!</h3>
+          <h3 style={{ fontWeight: 500 }}>Start following people!</h3> */}
+          <p>Free tier heroku server is awakening...</p>
+          <VscLoading className="mt-2 animate-spin" size={30} />
         </div>
       );
     }

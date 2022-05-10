@@ -9,7 +9,7 @@ export default function Rightbar() {
     <div className={s.Rightbar} style={{ position: "sticky" }}>
       <p
         style={{ fontSize: "14px", fontWeight: 500, color: "#808080" }}
-        className={s.recommendedText}
+        className={`${s.recommendedText} mt-8`}
       >
         Senin İçin Öneriler
       </p>
