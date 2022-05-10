@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/instagram-clone/static/css/main.b865e536.css",
-    "main.js": "/instagram-clone/static/js/main.ac0db36f.js",
+    "main.css": "/instagram-clone/static/css/main.a4652cdb.css",
+    "main.js": "/instagram-clone/static/js/main.86acf091.js",
     "static/media/post.jpg": "/instagram-clone/static/media/post.eb0d09166eaeaa08f460.jpg",
     "static/media/istekram.png": "/instagram-clone/static/media/istekram.da20bcb0abab978dabec.png",
     "static/media/add.svg": "/instagram-clone/static/media/add.615f761f1a31e2b26df9143c2ef7f002.svg",
@@ -32,11 +32,11 @@
     "static/media/save-border.svg": "/instagram-clone/static/media/save-border.17c784392dff69424b85bd17dafefd39.svg",
     "static/media/save-fill.svg": "/instagram-clone/static/media/save-fill.1b99788708609668ffc8737f05950594.svg",
     "static/media/subdir.svg": "/instagram-clone/static/media/subdir.0e812611a9877756f13cd3e386b361d5.svg",
-    "main.b865e536.css.map": "/instagram-clone/static/css/main.b865e536.css.map",
-    "main.ac0db36f.js.map": "/instagram-clone/static/js/main.ac0db36f.js.map"
+    "main.a4652cdb.css.map": "/instagram-clone/static/css/main.a4652cdb.css.map",
+    "main.86acf091.js.map": "/instagram-clone/static/js/main.86acf091.js.map"
   },
   "entrypoints": [
-    "static/css/main.b865e536.css",
-    "static/js/main.ac0db36f.js"
+    "static/css/main.a4652cdb.css",
+    "static/js/main.86acf091.js"
   ]
 }
